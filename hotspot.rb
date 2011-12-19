@@ -34,7 +34,7 @@ end
 if __FILE__ == $0
   usage = "ruby #{__FILE__} <Search pattern to include> [Path to repository] [Min. cutoff for occurance] [Time in days]"
 
-  if ["/?", "/h", "/help", "-h", "--help"].include? ARGV[0]
+  if ["-h", "--help"].include? ARGV[0]
     puts usage
     exit 0
   end
