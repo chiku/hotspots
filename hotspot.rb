@@ -1,7 +1,8 @@
 class Hotspot
-  def initialize(lines)
-    @lines = lines
-    @store = Hash.new(0)
+  def initialize(lines, cutoff=0)
+    @lines  = lines
+    @store  = Hash.new(0)
+    @cutoff = cutoff
 
     @lines.map   { |line| line.strip.downcase }
           .select{ |line| not line.empty? }
@@ -15,7 +16,7 @@ class Hotspot
   def to_s
     dump = ""
     sorted_array.each do |key, value|
-      dump << "#{key},#{value}\n"
+      dump << "#{key},#{value}\n" if value >= @cutoff
     end
 
     dump
@@ -31,15 +32,23 @@ class Hotspot
 end
 
 if __FILE__ == $0
-  inclusions = ARGV[0]
-  path       = ARGV[1]      || "."
-  time       = ARGV[2]      || 15
+  usage = "ruby #{__FILE__} <Search pattern to include> [Path to repository] [Min. cutoff for occurance] [Time in days]"
 
-  unless inclusions
-    puts "ruby #{__FILE__} <Search pattern to include> [Path to repository] [Time in days]"
+  if ["/?", "/h", "/help", "-h", "--help"].include? ARGV[0]
+    puts usage
+    exit 0
+  end
+
+  inclusions = ARGV[0].to_s
+  path       = ARGV[1]      || "."
+  cutoff     = ARGV[2].to_i
+  time       = ARGV[3]      || 15
+
+  if inclusions.empty?
+    puts usage
     exit 1
   end
 
   files = `cd #{path} && git log --name-only --since #{time}.days.ago | grep #{inclusions} && cd -`.split("\n")
-  puts Hotspot.new(files).to_s
+  puts Hotspot.new(files, cutoff).to_s
 end

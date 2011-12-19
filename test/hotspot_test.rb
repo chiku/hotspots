@@ -92,4 +92,18 @@ efg.txt,3
 abc.txt,2
     EOS
   end
+
+  it "doesn't display setting below cut-off" do
+    lines = [
+      "abc.txt",
+      "abc.txt",
+      "efg.txt",
+      "efg.txt",
+      "efg.txt"
+    ]
+    hotspot = Hotspot.new(lines, 3)
+    hotspot.to_s.must_equal <<-EOS
+efg.txt,3
+    EOS
+  end
 end
