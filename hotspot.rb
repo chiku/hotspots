@@ -29,3 +29,17 @@ class Hotspot
     end
   end
 end
+
+if __FILE__ == $0
+  inclusions = ARGV[0]
+  path       = ARGV[1]      || "."
+  time       = ARGV[2]      || 15
+
+  unless inclusions
+    puts "ruby #{__FILE__} <Search pattern to include> [Path to repository] [Time in days]"
+    exit 1
+  end
+
+  files = `cd #{path} && git log --name-only --since #{time}.days.ago | grep #{inclusions} && cd -`.split("\n")
+  puts Hotspot.new(files).to_s
+end
