@@ -28,6 +28,7 @@ The default minimum cutoff, below which number of modifications to file won't be
 The default maximum time-period of days for which modifications to a file is tracked is 15.
 
 For help use *one* of the following
+
 ``` script
 ruby hotspot.rb --help
 ruby hotspot.rb -h
@@ -39,13 +40,15 @@ Examples
 This will give you all file names that contain '.c' and have been modified at least once in the past 15 days in the git repository pointed to by the current path.
 
 ``` script
-ruby hotspot.rb .c
+ruby hotspot.rb /"//.c/"
 ```
+
+*Note that the dot "." is escaped as it is a regular expression matcher.*
 
 This will give you all file names that contain '.rb' and have been modified at least thrice in the past 5 days in git repository present in 'rails' directory.
 
 ``` script
-ruby hotspot.rb .rb rails 3 5
+ruby hotspot.rb /"//.rb/" rails 3 5
 ```
 
 Running tests
