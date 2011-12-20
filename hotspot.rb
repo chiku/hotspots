@@ -32,23 +32,58 @@ class Hotspot
 end
 
 if __FILE__ == $0
-  usage = "ruby #{__FILE__} <Search pattern to include> [Path to repository] [Min. cutoff for occurance] [Time in days]"
+  require 'optparse'
 
-  if ["-h", "--help"].include? ARGV[0]
-    puts usage
-    exit 0
-  end
+  options = {
+    :time => 15,
+    :repository => ".",
+    :filter => "",
+    :cutoff => 0
+  }
 
-  inclusions = ARGV[0].to_s
-  path       = ARGV[1]      || "."
-  cutoff     = ARGV[2].to_i
-  time       = ARGV[3]      || 15
+  OptionParser.new do |opts|
+    opts.banner = "Tool to find most modified files over the past in a git repository."
 
-  if inclusions.empty?
-    puts usage
-    exit 1
-  end
+    opts.separator ""
+    opts.separator "Usage: ruby #{__FILE__} [options]"
+    opts.separator ""
+    opts.separator "Specific options:"
 
-  files = `cd #{path} && git log --name-only --since #{time}.days.ago | grep #{inclusions} && cd -`.split("\n")
-  puts Hotspot.new(files, cutoff).to_s
+    opts.on("-t", "--time [TIME]", OptionParser::DecimalInteger,
+            "Time is days to scan the repository for. Defaults to fifteen") do |o|
+      options[:time] = o
+    end
+
+    opts.on("-r", "--repository [PATH]", String,
+            "The path to the current repository. Defaults to current path") do |o|
+      options[:repository] = o
+    end
+
+    opts.on("-f", "--filter [REGEX]", String,
+            "The regular expression for file to filter with. All files are allowed when not specified") do |o|
+      options[:filter] = o
+    end
+
+    opts.on("-c", "--cutoff [CUTOFF]", OptionParser::DecimalInteger,
+            "The minimum occurance to consider for a file to appear in the list. Defaults to zero") do |o|
+      options[:cutoff] = o.to_i
+    end
+
+    opts.on_tail("-h", "--help", "Show this message") do
+      puts opts
+      exit
+    end
+  end.parse!
+
+  files = %x(
+    cd #{options[:repository]} && \
+    git log --pretty="%H" --since #{options[:time]}.days.ago |
+    while read commit_hash
+    do
+      git show --oneline --name-only $commit_hash | tail -n+2 | grep "#{options[:filter]}"
+    done && \
+    cd -
+  ).to_s.split("\n")
+
+  puts Hotspot.new(files, options[:cutoff]).to_s
 end

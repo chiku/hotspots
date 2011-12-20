@@ -13,25 +13,14 @@ Syntax
 ------
 
 ``` script
-ruby hotspot.rb <Search pattern to include> [Path to repository] [Min. cutoff for occurance] [Time in days]
-ruby hoyspot.rb <--help | -h>
-```
+Usage: hotspot.rb [options]
 
-<...> denotes a compulsory argument and [...] denotes an optional argument.
-
-The search pattern is a compulsary argument and can be a regular expression.
-
-The default path to repository is the current repository. The path should point to a git repository.
-
-The default minimum cutoff, below which number of modifications to file won't be considered is zero.
-
-The default maximum time-period of days for which modifications to a file is tracked is 15.
-
-For help use *one* of the following
-
-``` script
-ruby hotspot.rb --help
-ruby hotspot.rb -h
+Specific options:
+    -t, --time [TIME]                Time is days to scan the repository for. Defaults to fifteen
+    -r, --repository [PATH]          The path to the current repository. Defaults to current path
+    -f, --filter [REGEX]             The regular expression for file to filter with. All files are allowed when not specified
+    -c, --cutoff [CUTOFF]            The minimum occurance to consider for a file to appear in the list. Defaults to zero
+    -h, --help                       Show this message
 ```
 
 Examples
@@ -40,7 +29,7 @@ Examples
 This will give you all file names that contain '.c' and have been modified at least once in the past 15 days in the git repository pointed to by the current path.
 
 ``` script
-ruby hotspot.rb "/.c"
+ruby hotspot.rb --filter "/.c"
 ```
 
 *Note that the dot "." is escaped as it is a regular expression matcher.*
@@ -48,7 +37,7 @@ ruby hotspot.rb "/.c"
 This will give you all file names that contain '.rb' and have been modified at least thrice in the past 5 days in git repository present in 'rails' directory.
 
 ``` script
-ruby hotspot.rb "/.rb" rails 3 5
+ruby hotspot.rb --filter "/.rb" --path rails --cutoff 3 --time 5
 ```
 
 Running tests
