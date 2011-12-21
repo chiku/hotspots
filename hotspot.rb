@@ -116,8 +116,7 @@ if __FILE__ == $0
     while read commit_hash
     do
       git show --oneline --name-only $commit_hash | tail -n+2 | grep "#{options[:filter]}"
-    done &&
-    cd -
+    done
   ).to_s.split("\n")
 
   puts Hotspot.new(files, options[:cutoff]).to_s
