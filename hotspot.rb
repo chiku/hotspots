@@ -3,13 +3,14 @@
 require 'optparse'
 
 class Hotspot
-  def initialize(lines, cutoff=0)
+  def initialize(lines, options = {})
     @lines  = lines
     @store  = Hash.new(0)
-    @cutoff = cutoff
+    @cutoff = options[:cutoff] || 0
+    @filter = options[:filter] || ""
 
     @lines.map   { |line| line.strip.downcase }
-          .select{ |line| not line.empty? }
+          .select{ |line| not line.empty? and line =~ Regexp.new(@filter) }
           .each  { |line| @store[line] += 1 }
   end
 
@@ -115,9 +116,9 @@ if __FILE__ == $0
     git log --pretty="%H" --since #{options[:time]}.days.ago |
     while read commit_hash
     do
-      git show --oneline --name-only $commit_hash | tail -n+2 | grep "#{options[:filter]}"
+      git show --oneline --name-only $commit_hash | tail -n+2
     done
   ).to_s.split("\n")
 
-  puts Hotspot.new(files, options[:cutoff]).to_s
+  puts Hotspot.new(files, options.clone).to_s
 end

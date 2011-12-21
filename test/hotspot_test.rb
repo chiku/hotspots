@@ -103,9 +103,28 @@ abc.txt,2
       "efg.txt",
       "efg.txt"
     ]
-    hotspot = Hotspot.new(lines, 3)
+    hotspot = Hotspot.new(lines, :cutoff => 3)
     hotspot.to_s.must_equal <<-EOS
 efg.txt,3
+    EOS
+  end
+
+  it "doesn't display lines that don't match criteria" do
+    lines = [
+      "abc.txt",
+      "abc.txt",
+      "abc.txt",
+      "dont.exist",
+      "abc.log",
+      "efg.txt",
+      "efg.txt",
+      "missing.txt"
+    ]
+    hotspot = Hotspot.new(lines, :filter => "abc|efg")
+    hotspot.to_s.must_equal <<-EOS
+abc.txt,3
+efg.txt,2
+abc.log,1
     EOS
   end
 end
