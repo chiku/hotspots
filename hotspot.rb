@@ -112,13 +112,14 @@ if __FILE__ == $0
   options = HotspotOptionsParser.new.parse
 
   files = %x(
+    bash -c '\
     cd #{options[:repository]} && \
     git log --pretty="%H" --since #{options[:time]}.days.ago |
     while read commit_hash
     do
       git show --oneline --name-only $commit_hash | tail -n+2
     done
-  ).to_s.split("\n")
+  ').to_s.split("\n")
 
   puts Hotspot.new(files, options.clone).to_s
 end
