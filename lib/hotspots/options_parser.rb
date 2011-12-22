@@ -10,7 +10,21 @@ module Hotspots
     end
 
     def parse
-      @parsed ||= OptionParser.new do |opts|
+      parser = new_option_parser
+      begin
+        parser.parse!
+      rescue OptionParser::InvalidOption => ex
+        puts ex.to_s
+        puts "Use -h for help\n"
+        exit 1
+      end
+      @options
+    end
+
+    private
+
+    def new_option_parser
+      OptionParser.new do |opts|
         set_banner_on(opts)
 
         handle_time_on(opts)
@@ -19,12 +33,8 @@ module Hotspots
         handle_cutoff_on(opts)
 
         handle_help_on(opts)
-      end.parse!
-
-      @options
+      end
     end
-
-    private
 
     def set_banner_on(opts)
       opts.banner = "Tool to find most modified files over the past in a git repository."
