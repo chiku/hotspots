@@ -13,7 +13,7 @@ Syntax
 ------
 
 ``` script
-Usage: hotspot.rb [options]
+Usage: ruby hotspots [options]
 
 Specific options:
     -t, --time [TIME]                Time is days to scan the repository for. Defaults to fifteen
@@ -29,7 +29,7 @@ Examples
 This will give you all file names that contain '.c' and have been modified at least once in the past 15 days in the git repository pointed to by the current path.
 
 ``` script
-ruby hotspot.rb --filter "/.c"
+ruby hotspots --filter "/.c"
 ```
 
 *Note that the dot "." is escaped as it is a regular expression matcher.*
@@ -37,7 +37,7 @@ ruby hotspot.rb --filter "/.c"
 This will give you all file names that contain '.rb' and have been modified at least thrice in the past 5 days in git repository present in 'rails' directory.
 
 ``` script
-ruby hotspot.rb --filter "/.rb" --path rails --cutoff 3 --time 5
+ruby hotspots --filter "/.rb" --path rails --cutoff 3 --time 5
 ```
 
 Running tests
