@@ -4,18 +4,5 @@ require 'optparse'
 
 require './lib/hotspots'
 
-if __FILE__ == $0
-  options = Hotspots::OptionsParser.new.parse
-
-  files = %x(
-    bash -c '\
-    cd #{options[:repository]} && \
-    git log --pretty="%H" --since #{options[:time]}.days.ago |
-    while read commit_hash
-    do
-      git show --oneline --name-only $commit_hash | tail -n+2
-    done
-  ').to_s.split("\n")
-
-  puts Hotspots::Store.new(files, options.clone).to_s
-end
+options = Hotspots::OptionsParser.new.parse
+puts Hotspots::Store.new(Hotspots::Repository::GitDriver.files(options.clone), options.clone).to_s
