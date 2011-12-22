@@ -2,7 +2,7 @@
 
 require 'optparse'
 
-require './lib/hotspots'
+require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
 
 options = Hotspots::OptionsParser.new.parse
-puts Hotspots::Store.new(Hotspots::Repository::GitDriver.files(options.clone), options.clone).to_s
+puts Hotspots::Store.new(Hotspots::Repository::GitDriver.new(options.clone).files, options.clone).to_s
