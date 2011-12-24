@@ -12,4 +12,6 @@ if not File.directory?(repository) and not File.directory?(File.join(repository,
   exit 2
 end
 
+Dir.chdir(repository)
+
 puts Hotspots::Store.new(Hotspots::Repository::Git.new(options.clone).files, options.clone).to_s

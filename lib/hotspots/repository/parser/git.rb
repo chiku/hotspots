@@ -8,7 +8,6 @@ module Hotspots
       end
 
       def files
-        Dir.chdir(@repository)
         all_affected_files
       end
 
