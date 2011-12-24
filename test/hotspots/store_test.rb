@@ -108,7 +108,7 @@ module Hotspots
         "efg.txt",
         "missing.txt"
       ]
-      store = Store.new(lines, :filter => "abc|efg")
+      store = Store.new(lines, :file_filter => "abc|efg")
       store.to_s.must_equal "abc.txt,3\nefg.txt,2\nabc.log,1\n"
     end
   end

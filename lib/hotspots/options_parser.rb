@@ -7,7 +7,6 @@ module Hotspots
         :time => 15,
         :repository => ".",
         :file_filter => "",
-        :filter => "",
         :message_filter => "",
         :cutoff => 0
       }
@@ -67,7 +66,7 @@ module Hotspots
     def handle_file_filter_on(opts)
       opts.on("-f", "--file-filter [REGEX]", String,
               "Regular expression to filtering file names. All files are allowed when not specified") do |o|
-        @options[:file_filter] = @options[:filter] = o
+        @options[:file_filter] = o
       end
     end
 
