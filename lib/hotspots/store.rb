@@ -16,12 +16,8 @@ module Hotspots
     end
 
     def to_s
-      dump = ""
-      sorted_array.each do |key, value|
-        dump << "#{key},#{value}\n" if value >= @cutoff
-      end
-
-      dump
+      sorted_array.select     { |key, value| value >= @cutoff }
+                  .reduce("") { |acc, (key, value)| acc << "#{key},#{value}\n" }
     end
 
     private
