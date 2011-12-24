@@ -5,7 +5,7 @@ module Hotspots
         def initialize(driver, options)
           @driver          = driver
           @time            = options[:time]
-          @message_filters = options[:message_filter]
+          @message_filters = options[:message_filter] || options[:message_filters]
         end
 
         def files
@@ -17,7 +17,7 @@ module Hotspots
 
           filtered_commit_hashes.map do |filter, commit_hashes|
             result << commit_hashes.map do |commit_hash|
-              %x(git show --oneline --name-only #{commit_hash}).gsub("\r", "").split("\n")[1..-1]
+              @driver.show_one_line_names(:commit_hash => commit_hash).split("\n")[1..-1]
             end
           end
 
@@ -28,7 +28,7 @@ module Hotspots
           result = {}
 
           @message_filters.map do |filter|
-            result[filter] = @driver.pretty_log(:since_days => @time, :message_filter => filter).gsub("\r", "").split("\n")
+            result[filter] = @driver.pretty_log(:since_days => @time, :message_filter => filter).split("\n")
           end.flatten
 
           result
