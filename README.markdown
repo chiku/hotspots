@@ -7,7 +7,7 @@ This program helps in identifying files with maximum churn in a git repository. 
 Dependencies
 ------------
 
-This script depends on ruby. The ruby executable should be in your execution path for the script to run.
+This script depends on ruby. Obviously it also depends on git. Ruby and git executables should be in your execution path for the script to run.
 
 Syntax
 ------
@@ -22,7 +22,8 @@ Specific options:
     -m, --message-filter [PIPE SEPARATED]  Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified
     -c, --cutoff [CUTOFF]                  The minimum occurance to consider for a file to appear in the list. Defaults to zero
     -v, --verbose                          Show verbose output
-    -h, --help                             Show this message```
+    -h, --help                             Show this message
+```
 
 Examples
 --------
