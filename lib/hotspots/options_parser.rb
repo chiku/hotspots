@@ -19,7 +19,7 @@ module Hotspots
       rescue OptionParser::InvalidOption => ex
         puts ex.to_s
         puts "Use -h for help\n"
-        exit 1
+        @options[:exit_code] = 1
       end
       @options
     end
@@ -73,7 +73,8 @@ module Hotspots
     def handle_message_filter_on(opts)
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
               "Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified") do |o|
-        @options[:message_filter] = o
+        @options[:message_filter] = o.split("|")
+        @options[:message_filter] = [""] if @options[:message_filter].empty?
       end
     end
 
@@ -87,7 +88,7 @@ module Hotspots
     def handle_help_on(opts)
       opts.on_tail("-h", "--help", "Show this message") do
         puts opts
-        exit
+        @options[:exit_code] = 0
       end
     end
   end

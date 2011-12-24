@@ -3,4 +3,13 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
 
 options = Hotspots::OptionsParser.new.parse
-puts Hotspots::Store.new(Hotspots::Repository::GitDriver.new(options.clone).files, options.clone).to_s
+
+exit options[:exit_code] if options[:exit_code]
+
+repository = options[:repository]
+if not File.directory?(repository) and not File.directory?(File.join(repository, '.git'))
+  puts "#{repository} doesn't seem to be a git repository!"
+  exit 2
+end
+
+puts Hotspots::Store.new(Hotspots::Repository::Git.new(options.clone).files, options.clone).to_s

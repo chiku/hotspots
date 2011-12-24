@@ -1,24 +1,15 @@
 module Hotspots
   module Repository
-    class GitDriver
+    class Git
       def initialize(options)
         @repository      = options[:repository]
         @time            = options[:time]
-        @message_filters = options[:message_filter].split("|")
-        @message_filters = [""] if @message_filters.empty?
+        @message_filters = options[:message_filter]
       end
 
       def files
-        validate!
         Dir.chdir(@repository)
         all_affected_files
-      end
-
-      def validate!
-        if not File.directory?(@repository) and not File.directory?(File.join(@repository, '.git'))
-          puts "#{@repository} doesn't seem to be a git repository!"
-          exit 2
-        end
       end
 
       def all_affected_files
