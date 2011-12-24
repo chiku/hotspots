@@ -15,7 +15,7 @@ module Hotspots::Repository
     end
 
     it "fetches multiple commit hashes" do
-      options    = {:time => 10, :message_filter => ["Foo", "Bar"]}
+      options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
       git_parser = Parser::Git.new StubGitDriver, options
 
       git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2", "SHA3"])
@@ -23,7 +23,7 @@ module Hotspots::Repository
 
     it "finds all affected files for a commit message" do
       mock_git_driver = MiniTest::Mock.new
-      options         = {:time => 10, :message_filter => ["Foo"]}
+      options         = {:time => 10, :message_filters => ["Foo"]}
       git_parser      = Parser::Git.new mock_git_driver, options
 
       mock_git_driver.expect(:pretty_log, "SHA1", [:since_days => options[:time], :message_filter => "Foo"])

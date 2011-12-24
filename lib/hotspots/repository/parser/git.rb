@@ -5,7 +5,7 @@ module Hotspots
         def initialize(driver, options)
           @driver          = driver
           @time            = options[:time]
-          @message_filters = options[:message_filter] || options[:message_filters]
+          @message_filters = options[:message_filters]
         end
 
         def files

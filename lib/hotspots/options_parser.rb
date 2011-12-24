@@ -4,12 +4,12 @@ module Hotspots
   class OptionsParser
     def initialize
       @options = {
-        :time => 15,
-        :repository => ".",
-        :file_filter => "",
-        :message_filter => "",
-        :message_filters => "",
-        :cutoff => 0
+        :time            => 15,
+        :repository      => ".",
+        :file_filter     => "",
+        :message_filters => [""],
+        :cutoff          => 0,
+        :exit_code       => nil
       }
     end
 
@@ -21,6 +21,10 @@ module Hotspots
         puts ex.to_s
         puts "Use -h for help\n"
         @options[:exit_code] = 1
+      rescue OptionParser::InvalidArgument => ex
+        puts ex.to_s
+        puts "Use -h for help\n"
+        @options[:exit_code] = 2
       end
       @options
     end
@@ -74,9 +78,7 @@ module Hotspots
     def handle_message_filter_on(opts)
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
               "Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified") do |o|
-        @options[:message_filter] = o.split("|")
-        @options[:message_filter] = [""] if @options[:message_filter].empty?
-        @options[:message_filters] = @options[:message_filter]
+        @options[:message_filters] = o.to_s.split("|")
       end
     end
 

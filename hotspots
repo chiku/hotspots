@@ -9,7 +9,7 @@ exit options[:exit_code] if options[:exit_code]
 repository = options[:repository]
 if not File.directory?(repository) and not File.directory?(File.join(repository, '.git'))
   puts "#{repository} doesn't seem to be a git repository!"
-  exit 2
+  exit 10
 end
 
 Dir.chdir(repository)
