@@ -47,8 +47,9 @@ module Hotspots
     end
 
     def set_banner_on(opts)
-      opts.banner = "Tool to find most modified files over the past in a git repository."
+      opts.banner = "Tool to find most modified files over the past few days in a git repository."
 
+      opts.separator "Copyright (C) 2011 Chirantan Mitra"
       opts.separator ""
       opts.separator "Usage: ruby #{__FILE__} [options]"
       opts.separator ""
@@ -58,21 +59,21 @@ module Hotspots
     def handle_time_on(opts)
       opts.on("-t", "--time [TIME]", OptionParser::DecimalInteger,
               "Time in days to scan the repository for. Defaults to fifteen") do |o|
-        @options[:time] = o
+        @options[:time] = o.to_i
       end
     end
 
     def handle_path_on(opts)
       opts.on("-r", "--repository [PATH]", String,
               "Path to the repository to scan. Defaults to current path") do |o|
-        @options[:repository] = o
+        @options[:repository] = o.to_s
       end
     end
 
     def handle_file_filter_on(opts)
       opts.on("-f", "--file-filter [REGEX]", String,
               "Regular expression to filtering file names. All files are allowed when not specified") do |o|
-        @options[:file_filter] = o
+        @options[:file_filter] = o.to_s
       end
     end
 

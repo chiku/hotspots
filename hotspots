@@ -3,12 +3,14 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
 
 options = Hotspots::OptionsParser.new.parse
+exit_code, repository = options[:exit_code], options[:repository]
 
-exit options[:exit_code] if options[:exit_code]
+if exit_code
+  exit exit_code
+end
 
-repository = options[:repository]
 if not File.directory?(repository) and not File.directory?(File.join(repository, '.git'))
-  puts "#{repository} doesn't seem to be a git repository!"
+  puts "'#{repository}' doesn't seem to be a git repository!"
   exit 10
 end
 
