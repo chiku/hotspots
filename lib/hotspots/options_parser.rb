@@ -40,6 +40,7 @@ module Hotspots
         handle_file_filter_on(opts)
         handle_message_filter_on(opts)
         handle_cutoff_on(opts)
+        handle_verbosity_on(opts)
 
         handle_help_on(opts)
       end
@@ -89,8 +90,16 @@ module Hotspots
       end
     end
 
+    def handle_verbosity_on(opts)
+      opts.on("-v", "--verbose",
+              "Show verbose output") do
+        ::Hotspots::Logger.set ::Hotspots::Logger::Console
+      end
+    end
+
     def handle_help_on(opts)
-      opts.on_tail("-h", "--help", "Show this message") do
+      opts.on_tail("-h", "--help",
+                   "Show this message") do
         puts opts
         @options[:exit_code] = 0
       end

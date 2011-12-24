@@ -21,6 +21,7 @@ Specific options:
     -f, --file-filter [REGEX]              Regular expression to filtering file names. All files are allowed when not specified
     -m, --message-filter [PIPE SEPARATED]  Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified
     -c, --cutoff [CUTOFF]                  The minimum occurance to consider for a file to appear in the list. Defaults to zero
+    -v, --verbose                          Show verbose output
     -h, --help                             Show this message```
 
 Examples
@@ -50,4 +51,4 @@ ruby test/hotspots_test.rb
 License
 -------
 
-This script is released under the MIT license. Please refer to LICENSE for more details.
+This tool is released under the MIT license. Please refer to LICENSE for more details.

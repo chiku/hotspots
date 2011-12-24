@@ -4,11 +4,19 @@ module Hotspots
       class Git
         class << self
           def pretty_log(options)
-            %x(git log --pretty="%H" --since #{options[:since_days]}.days.ago --grep "#{options[:message_filter]}").gsub("\r", "")
+            command = %Q(git log --pretty="%H" --since #{options[:since_days]}.days.ago --grep "#{options[:message_filter]}")
+              .tap {|raw| ::Hotspots::Logger.log "<Input> #{raw}"}
+            %x(#{command})
+              .tap {|raw| ::Hotspots::Logger.log raw}
+              .gsub("\r", "")
           end
 
           def show_one_line_names(options)
-            %x(git show --oneline --name-only #{options[:commit_hash]}).gsub("\r", "")
+            command = %Q(git show --oneline --name-only #{options[:commit_hash]})
+              .tap {|raw| ::Hotspots::Logger.log "<Input> #{raw}"}
+            %x(#{command})
+              .tap {|raw| ::Hotspots::Logger.log "<Output> #{raw}"}
+              .gsub("\r", "")
           end
         end
       end
