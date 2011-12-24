@@ -3,8 +3,8 @@ module Hotspots
     def initialize(lines, options = {})
       @lines  = lines
       @store  = Hash.new(0)
-      @cutoff = options[:cutoff] || 0
-      @filter = options[:filter] || ""
+      @cutoff = options[:cutoff]      || 0
+      @filter = options[:file_filter] || options[:filter] || ""
 
       @lines.map   { |line| line.strip.downcase }
             .select{ |line| not line.empty? and line =~ Regexp.new(@filter) }

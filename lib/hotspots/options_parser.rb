@@ -6,7 +6,9 @@ module Hotspots
       @options = {
         :time => 15,
         :repository => ".",
+        :file_filter => "",
         :filter => "",
+        :message_filter => "",
         :cutoff => 0
       }
     end
@@ -31,7 +33,8 @@ module Hotspots
 
         handle_time_on(opts)
         handle_path_on(opts)
-        handle_filter_on(opts)
+        handle_file_filter_on(opts)
+        handle_message_filter_on(opts)
         handle_cutoff_on(opts)
 
         handle_help_on(opts)
@@ -49,22 +52,29 @@ module Hotspots
 
     def handle_time_on(opts)
       opts.on("-t", "--time [TIME]", OptionParser::DecimalInteger,
-              "Time is days to scan the repository for. Defaults to fifteen") do |o|
+              "Time in days to scan the repository for. Defaults to fifteen") do |o|
         @options[:time] = o
       end
     end
 
     def handle_path_on(opts)
       opts.on("-r", "--repository [PATH]", String,
-              "The path to the current repository. Defaults to current path") do |o|
+              "Path to the repository to scan. Defaults to current path") do |o|
         @options[:repository] = o
       end
     end
 
-    def handle_filter_on(opts)
-      opts.on("-f", "--filter [REGEX]", String,
-              "The regular expression for file to filter with. All files are allowed when not specified") do |o|
-        @options[:filter] = o
+    def handle_file_filter_on(opts)
+      opts.on("-f", "--file-filter [REGEX]", String,
+              "Regular expression to filtering file names. All files are allowed when not specified") do |o|
+        @options[:file_filter] = @options[:filter] = o
+      end
+    end
+
+    def handle_message_filter_on(opts)
+      opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
+              "Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified") do |o|
+        @options[:message_filter] = o
       end
     end
 

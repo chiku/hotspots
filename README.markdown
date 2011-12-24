@@ -16,12 +16,12 @@ Syntax
 Usage: ruby hotspots [options]
 
 Specific options:
-    -t, --time [TIME]                Time is days to scan the repository for. Defaults to fifteen
-    -r, --repository [PATH]          The path to the current repository. Defaults to current path
-    -f, --filter [REGEX]             The regular expression for file to filter with. All files are allowed when not specified
-    -c, --cutoff [CUTOFF]            The minimum occurance to consider for a file to appear in the list. Defaults to zero
-    -h, --help                       Show this message
-```
+    -t, --time [TIME]                      Time in days to scan the repository for. Defaults to fifteen
+    -r, --repository [PATH]                Path to the repository to scan. Defaults to current path
+    -f, --file-filter [REGEX]              Regular expression to filtering file names. All files are allowed when not specified
+    -m, --message-filter [PIPE SEPARATED]  Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified
+    -c, --cutoff [CUTOFF]                  The minimum occurance to consider for a file to appear in the list. Defaults to zero
+    -h, --help                             Show this message```
 
 Examples
 --------
@@ -29,7 +29,7 @@ Examples
 This will give you all file names that contain '.c' and have been modified at least once in the past 15 days in the git repository pointed to by the current path.
 
 ``` script
-ruby hotspots --filter "/.c"
+ruby hotspots --file-filter "/.c"
 ```
 
 *Note that the dot "." is escaped as it is a regular expression matcher.*
@@ -37,14 +37,14 @@ ruby hotspots --filter "/.c"
 This will give you all file names that contain '.rb' and have been modified at least thrice in the past 5 days in git repository present in 'rails' directory.
 
 ``` script
-ruby hotspots --filter "/.rb" --path rails --cutoff 3 --time 5
+ruby hotspots --file-filter "/.rb" --path rails --cutoff 3 --time 5
 ```
 
 Running tests
 -------------
 
 ``` script
-ruby test/hotspot_test.rb
+ruby test/hotspots_test.rb
 ```
 
 License
