@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
-
 require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
 
 options = Hotspots::OptionsParser.new.parse

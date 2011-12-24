@@ -1,3 +1,5 @@
+require 'optparse'
+
 module Hotspots
   class OptionsParser
     def initialize
