@@ -8,6 +8,7 @@ module Hotspots
         :repository => ".",
         :file_filter => "",
         :message_filter => "",
+        :message_filters => "",
         :cutoff => 0
       }
     end
@@ -75,6 +76,7 @@ module Hotspots
               "Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified") do |o|
         @options[:message_filter] = o.split("|")
         @options[:message_filter] = [""] if @options[:message_filter].empty?
+        @options[:message_filters] = @options[:message_filter]
       end
     end
 

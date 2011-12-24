@@ -9,29 +9,15 @@ module Hotspots
         end
 
         def files
-          all_affected_files
-        end
-
-        def all_affected_files
-          result = []
-
-          filtered_commit_hashes.map do |filter, commit_hashes|
-            result << commit_hashes.map do |commit_hash|
-              @driver.show_one_line_names(:commit_hash => commit_hash).split("\n")[1..-1]
-            end
-          end
-
-          result.flatten
+          filtered_commit_hashes.map do |commit_hash|
+            @driver.show_one_line_names(:commit_hash => commit_hash).split("\n")[1..-1]
+          end.flatten
         end
 
         def filtered_commit_hashes
-          result = {}
-
           @message_filters.map do |filter|
-            result[filter] = @driver.pretty_log(:since_days => @time, :message_filter => filter).split("\n")
-          end.flatten
-
-          result
+            @driver.pretty_log(:since_days => @time, :message_filter => filter).split("\n")
+          end.flatten.uniq
         end
       end
     end

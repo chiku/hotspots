@@ -9,7 +9,7 @@ module Hotspots::Repository
 
       mock_git_driver.expect(:pretty_log, "SHA1\nSHA2", [:since_days => options[:time], :message_filter => "Foo"])
 
-      git_parser.filtered_commit_hashes.must_equal("Foo" => ["SHA1", "SHA2"])
+      git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2"])
 
       assert mock_git_driver.verify
     end
@@ -18,7 +18,7 @@ module Hotspots::Repository
       options    = {:time => 10, :message_filter => ["Foo", "Bar"]}
       git_parser = Parser::Git.new StubGitDriver, options
 
-      git_parser.filtered_commit_hashes.must_equal("Foo" => ["SHA1", "SHA2"], "Bar" => ["SHA2", "SHA3"])
+      git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2", "SHA3"])
     end
 
     it "finds all affected files for a commit message" do
@@ -29,7 +29,7 @@ module Hotspots::Repository
       mock_git_driver.expect(:pretty_log, "SHA1", [:since_days => options[:time], :message_filter => "Foo"])
       mock_git_driver.expect(:show_one_line_names, "SHA1 CommitMessage\nfile1\nfile2", [:commit_hash => "SHA1"])
 
-      git_parser.all_affected_files.must_equal(["file1", "file2"])
+      git_parser.files.must_equal(["file1", "file2"])
 
       assert mock_git_driver.verify
     end
@@ -38,7 +38,7 @@ module Hotspots::Repository
       options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
       git_parser = Parser::Git.new StubGitDriver, options
 
-      git_parser.all_affected_files.must_equal(["file1", "file2", "file2", "file3", "file5", "file2", "file3", "file5", "file4"])
+      git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
     end
   end
 
