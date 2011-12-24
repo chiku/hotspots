@@ -2,7 +2,8 @@ module Hotspots
   module Repository
     module Parser
       class Git
-        def initialize(options)
+        def initialize(driver, options)
+          @driver          = driver
           @time            = options[:time]
           @message_filters = options[:message_filter]
         end
@@ -15,13 +16,11 @@ module Hotspots
           result = []
 
           filtered_commit_hashes.map do |filter, commit_hashes|
-            #puts "\n#{filter}"
-
             result << commit_hashes.map do |commit_hash|
-              %x(git show --oneline --name-only #{commit_hash}).gsub("\r", "").split("\n")[1..-1] # .tap {|file| puts file}
+              %x(git show --oneline --name-only #{commit_hash}).gsub("\r", "").split("\n")[1..-1]
             end
           end
-          #puts "**" * 50
+
           result.flatten
         end
 
@@ -29,7 +28,7 @@ module Hotspots
           result = {}
 
           @message_filters.map do |filter|
-            result[filter] = %x(git log --pretty="%H" --since #{@time}.days.ago --grep "#{filter}").gsub("\r", "").split("\n")
+            result[filter] = @driver.pretty_log(:since_days => @time, :message_filter => filter).gsub("\r", "").split("\n")
           end.flatten
 
           result

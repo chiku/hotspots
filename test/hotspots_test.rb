@@ -3,4 +3,6 @@
 require 'minitest/autorun'
 require 'minitest/spec'
 
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'store_test.rb')
+Dir[File.join(File.expand_path(File.dirname(__FILE__)), "hotspots", "**", "*_test.rb")].each do |file|
+  require file
+end

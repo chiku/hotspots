@@ -14,4 +14,4 @@ end
 
 Dir.chdir(repository)
 
-puts Hotspots::Store.new(Hotspots::Repository::Parser::Git.new(options.clone).files, options.clone).to_s
+puts Hotspots::Store.new(Hotspots::Repository::Parser::Git.new(Hotspots::Repository::Driver::Git, options.clone).files, options.clone).to_s
