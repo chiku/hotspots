@@ -1,4 +1,3 @@
-require 'hotspots/version'
 require 'hotspots/logger'
 require 'hotspots/options_parser'
 
