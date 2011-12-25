@@ -1,4 +1,5 @@
 require 'optparse'
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'hotspots', 'version')
 
 module Hotspots
   class OptionsParser
@@ -29,6 +30,7 @@ module Hotspots
     def new_option_parser
       ::OptionParser.new do |opts|
         set_banner_on(opts)
+        set_version_on(opts)
 
         handle_time_on(opts)
         handle_path_on(opts)
@@ -36,17 +38,20 @@ module Hotspots
         handle_message_filter_on(opts)
         handle_cutoff_on(opts)
         handle_verbosity_on(opts)
-
         handle_help_on(opts)
       end
     end
 
+    def set_version_on(opts)
+      opts.version = ::Hotspots::VERSION
+    end
+
     def set_banner_on(opts)
-      opts.banner = "Tool to find most modified files over the past few days in a git repository."
+      opts.banner = "Tool to find most modified files over the past few days in a git repository. version #{::Hotspots::VERSION}"
 
       opts.separator "Copyright (C) 2011 Chirantan Mitra"
       opts.separator ""
-      opts.separator "Usage: ruby #{__FILE__} [options]"
+      opts.separator "Usage: ruby hotspots [options]"
       opts.separator ""
       opts.separator "Specific options:"
     end
