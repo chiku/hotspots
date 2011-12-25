@@ -1,4 +1,4 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'store')
+require 'hotspots/store'
 
 module Hotspots
   describe "Store test" do

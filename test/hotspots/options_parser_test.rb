@@ -1,5 +1,6 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'options_parser')
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'logger')
+require 'hotspots/version'
+require 'hotspots/logger'
+require 'hotspots/options_parser'
 
 module Hotspots
   describe "OptionsParser" do

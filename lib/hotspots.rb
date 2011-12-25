@@ -1,8 +1,8 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'version')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'logger')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'store')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'options_parser')
-require File.join(File.expand_path(File.dirname(__FILE__)), 'hotspots', 'repository')
+require 'hotspots/version'
+require 'hotspots/logger'
+require 'hotspots/store'
+require 'hotspots/options_parser'
+require 'hotspots/repository'
 
 module Repository
   class Main
@@ -50,7 +50,7 @@ module Repository
     end
 
     def validate_git_repository!
-      if not File.directory?(repository) and not File.directory?(File.join(repository, '.git'))
+      if not File.directory?(repository) or not File.directory?(File.join(repository, '.git'))
         puts "'#{repository}' doesn't seem to be a git repository!"
         exit 10
       end

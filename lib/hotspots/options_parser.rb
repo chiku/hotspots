@@ -1,5 +1,6 @@
 require 'optparse'
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'hotspots', 'version')
+
+require 'hotspots/version'
 
 module Hotspots
   class OptionsParser

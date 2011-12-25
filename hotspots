@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
-
-Repository::Main.new.execute!
