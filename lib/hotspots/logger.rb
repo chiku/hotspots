@@ -1,34 +1,31 @@
 module Hotspots
   class Logger
     class Console
-      class << self
-        def <<(message)
-          $stdout << message
-        end
+      def self.<<(message)
+        $stdout << message
       end
     end
 
     class Null
-      class << self
-        def <<(message)
-        end
+      def self.<<(message)
       end
     end
 
-    @drain = Null
+    attr_reader :drain
+    def initialize
+      @drain = Null
+    end
 
-    class << self
-      def set(logger)
-        @drain = logger
-      end
+    def set(logger)
+      @drain = logger
+    end
 
-      def log(message)
-        @drain << format(message)
-      end
+    def log(message)
+      @drain << format(message)
+    end
 
-      def format(message)
-        "\n<#{Time.now}> #{message}"
-      end
+    def format(message)
+      "\n<#{Time.now}> #{message}"
     end
   end
 end

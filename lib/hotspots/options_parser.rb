@@ -9,22 +9,17 @@ module Hotspots
         :file_filter     => "",
         :message_filters => [""],
         :cutoff          => 0,
-        :exit_code       => nil
+        :verbose         => false,
+        :exit            => { :code => nil, :message => "" }
       }
     end
 
-    def parse
+    def parse(*args)
       parser = new_option_parser
       begin
-        parser.parse!
-      rescue OptionParser::InvalidOption => ex
-        puts ex.to_s
-        puts "Use -h for help\n"
-        @options[:exit_code] = 1
-      rescue OptionParser::InvalidArgument => ex
-        puts ex.to_s
-        puts "Use -h for help\n"
-        @options[:exit_code] = 2
+        parser.parse args
+      rescue ::OptionParser::InvalidOption, ::OptionParser::InvalidArgument => ex
+        @options[:exit] = { :code => 1, :message => (ex.to_s << "\nUse -h for help\n") }
       end
       @options
     end
@@ -32,7 +27,7 @@ module Hotspots
     private
 
     def new_option_parser
-      OptionParser.new do |opts|
+      ::OptionParser.new do |opts|
         set_banner_on(opts)
 
         handle_time_on(opts)
@@ -94,15 +89,14 @@ module Hotspots
     def handle_verbosity_on(opts)
       opts.on("-v", "--verbose",
               "Show verbose output") do
-        ::Hotspots::Logger.set ::Hotspots::Logger::Console
+        @options[:verbose] = true
       end
     end
 
     def handle_help_on(opts)
       opts.on_tail("-h", "--help",
                    "Show this message") do
-        puts opts
-        @options[:exit_code] = 0
+        @options[:exit] = { :code => 0, :message => opts.to_s }
       end
     end
   end

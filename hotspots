@@ -2,11 +2,20 @@
 
 require File.join(File.expand_path(File.dirname(__FILE__)), 'lib', 'hotspots')
 
-options = Hotspots::OptionsParser.new.parse
-exit_code, repository = options[:exit_code], options[:repository]
+logger       = Hotspots::Logger.new
+options      = Hotspots::OptionsParser.new.parse(*ARGV)
+exit_code    = options[:exit][:code]
+exit_message = options[:exit][:message]
+repository   = options[:repository]
+verbose      = options[:verbose]
 
 if exit_code
+  puts exit_message
   exit exit_code
+end
+
+if verbose
+  logger.set Hotspots::Logger::Console
 end
 
 if not File.directory?(repository) and not File.directory?(File.join(repository, '.git'))
@@ -16,8 +25,8 @@ end
 
 Dir.chdir(repository)
 
-driver = Hotspots::Repository::Driver::Git
-parser = Hotspots::Repository::Parser::Git.new(driver, options.clone)
-store  = Hotspots::Store.new(parser.files, options.clone)
+driver = Hotspots::Repository::Driver::Git.new logger
+parser = Hotspots::Repository::Parser::Git.new driver, options.clone
+store  = Hotspots::Store.new parser.files, options.clone
 
 puts store.to_s
