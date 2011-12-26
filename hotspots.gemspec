@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version           = Hotspots::VERSION
   s.authors           = ["Chirantan Mitra"]
   s.email             = ["chirantan.mitra@gmail.com"]
-  s.homepage          = "https://github.com/chiku/Hotspot"
+  s.homepage          = "https://github.com/chiku/hotspots"
   s.summary           = "Find all files that changed over the past in a git repository based on conditions"
   s.description       = <<-EOS
 Find all files that changed over the past days for a git repository. If the same file is modified over
