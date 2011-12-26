@@ -6,7 +6,7 @@ module Hotspots
       @cutoff = options[:cutoff]      || 0
       @filter = options[:file_filter] || ""
 
-      @lines.map   { |line| line.strip.downcase }
+      @lines.map   { |line| line.strip }
             .select{ |line| not line.empty? and line =~ Regexp.new(@filter) }
             .each  { |line| @store[line] += 1 }
     end

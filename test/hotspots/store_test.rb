@@ -31,14 +31,6 @@ module Hotspots
       store.on("absent.txt").must_equal 0
     end
 
-    it "disregards file case" do
-      lines = [
-        "ABC.TXT"
-      ]
-      store = Store.new(lines)
-      store.on("abc.txt").must_equal 1
-    end
-
     it "neglects empty lines" do
       lines = [
         " "
@@ -71,6 +63,14 @@ module Hotspots
       ]
       store = Store.new(lines)
       store.to_s.must_equal "abc.txt,1\nefg.txt,1\n"
+    end
+
+    it "has a case-sensitive string representation" do
+      lines = [
+        "aBc.tXt"
+      ]
+      store = Store.new(lines)
+      store.to_s.must_equal "aBc.tXt,1\n"
     end
 
     it "string representation has maximum occuring string at the top" do
