@@ -57,7 +57,7 @@ Running tests
 Clone the repository and run the following command from the repository.
 
 ``` script
-ruby test/hotspots_test.rb
+rake
 ```
 
 License

@@ -1,4 +1,4 @@
-require 'hotspots/repository/parser/git'
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'lib', 'hotspots', 'repository', 'parser', 'git')
 
 module Hotspots::Repository
   describe "Parser::Git test" do

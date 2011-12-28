@@ -11,7 +11,6 @@ module Repository
                 :driver, :parser, :store
 
     def initialize
-      @logger       = Hotspots::Logger.new
       @options      = Hotspots::OptionsParser.new.parse(*ARGV)
       @repository   = options[:repository]
       @verbose      = options[:verbose]
@@ -67,6 +66,7 @@ module Repository
     end
 
     def assign
+      @logger = Hotspots::Logger.new
       @driver = Hotspots::Repository::Driver::Git.new logger
       @parser = Hotspots::Repository::Parser::Git.new driver, options.clone
       @store  = Hotspots::Store.new parser.files, options.clone
