@@ -1,13 +1,13 @@
 current
 -------
 
-* Don't disregard file case
-* Run tests via rake
+* *Don't disregard file-name case*
+* Tests and coverage via rake
 
 v0.0.9
 ------
 
-* Add installation procedure.
+* Add installation procedure
 * Change website link
 * Bump up version
 

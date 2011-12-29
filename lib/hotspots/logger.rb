@@ -11,17 +11,17 @@ module Hotspots
       end
     end
 
-    attr_reader :drain
+    attr_reader :sink
     def initialize
-      @drain = Null
+      @sink = Null
     end
 
-    def set(logger)
-      @drain = logger
+    def set_console
+      @sink = Console
     end
 
     def log(message)
-      @drain << format(message)
+      @sink << format(message)
     end
 
     def format(message)

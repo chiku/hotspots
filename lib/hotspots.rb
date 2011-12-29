@@ -58,7 +58,7 @@ module Hotspots
 
     def set_logger
       if verbose
-        logger.set Hotspots::Logger::Console
+        logger.set_console
       end
     end
 
