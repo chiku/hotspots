@@ -4,7 +4,7 @@ require 'hotspots/store'
 require 'hotspots/options_parser'
 require 'hotspots/repository'
 
-module Repository
+module Hotspots
   class Main
     attr_reader :logger, :options, :repository, :verbose,
                 :exit_code, :exit_message,
@@ -16,6 +16,7 @@ module Repository
       @verbose      = options[:verbose]
       @exit_code    = options[:exit][:code]
       @exit_message = options[:exit][:message]
+      @logger       = Hotspots::Logger.new
     end
 
     def execute!
@@ -66,7 +67,6 @@ module Repository
     end
 
     def assign
-      @logger = Hotspots::Logger.new
       @driver = Hotspots::Repository::Driver::Git.new logger
       @parser = Hotspots::Repository::Parser::Git.new driver, options.clone
       @store  = Hotspots::Store.new parser.files, options.clone
