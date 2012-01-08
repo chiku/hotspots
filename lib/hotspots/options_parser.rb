@@ -48,9 +48,10 @@ module Hotspots
     end
 
     def set_banner_on(opts)
-      opts.banner = "Tool to find most modified files over the past few days in a git repository. version #{::Hotspots::VERSION}"
+      opts.banner = "Tool to find most modified files over the past few days in a git repository."
 
-      opts.separator "Copyright (C) 2011 Chirantan Mitra"
+      opts.separator "Version #{::Hotspots::VERSION}"
+      opts.separator "Copyright (C) 2011-2012 Chirantan Mitra"
       opts.separator ""
       opts.separator "Usage: ruby hotspots [options]"
       opts.separator ""
@@ -73,14 +74,16 @@ module Hotspots
 
     def handle_file_filter_on(opts)
       opts.on("-f", "--file-filter [REGEX]", String,
-              "Regular expression to filtering file names. All files are allowed when not specified") do |o|
+              "Regular expression to filtering file names.",
+              "All files are allowed when not specified") do |o|
         @options[:file_filter] = o.to_s
       end
     end
 
     def handle_message_filter_on(opts)
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
-              "Pipe separated values to filter files names against each commit message separated by pipe. All files are allowed when not specified") do |o|
+              "Pipe separated values to filter files names against each commit message separated by pipe.",
+              "All files are allowed when not specified") do |o|
         @options[:message_filters] = o.to_s.split("|")
       end
     end

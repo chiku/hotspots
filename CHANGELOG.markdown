@@ -1,4 +1,4 @@
-current
+v0.0.10
 -------
 
 * Handle '\r' line endings
