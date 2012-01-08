@@ -1,3 +1,8 @@
+current
+-------
+
+* Default task is to run coverage report
+
 v0.0.10
 -------
 

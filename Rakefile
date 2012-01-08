@@ -34,4 +34,4 @@ task :coverage do
   run_all_tests
 end
 
-task :default => [:test]
+task :default => [:coverage]
