@@ -16,7 +16,7 @@ module Hotspots::Repository
 
     it "fetches multiple commit hashes" do
       options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
-      git_parser = Parser::Git.new StubGitDriver, options
+      git_parser = Parser::Git.new StubGitDriver.new, options
 
       git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2", "SHA3"])
     end
@@ -36,39 +36,60 @@ module Hotspots::Repository
 
     it "finds all affected files for multiple commit messages" do
       options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
-      git_parser = Parser::Git.new StubGitDriver, options
+      git_parser = Parser::Git.new StubGitDriver.new, options
 
       git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
+    end
+
+    describe "handles line ending" do
+      it "of type \r\n" do
+        options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
+        git_parser = Parser::Git.new StubGitDriver.new(:line_ending => "\r\n"), options
+
+        git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
+      end
+
+      it "of type \r" do
+        options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
+        git_parser = Parser::Git.new StubGitDriver.new(:line_ending => "\r"), options
+
+        git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
+      end
     end
   end
 
   describe "git driver stub" do
-    it "pretty log is sane" do
-      StubGitDriver.pretty_log(:time => 10, :message_filter => "Foo").must_equal "SHA1\nSHA2"
-      StubGitDriver.pretty_log(:time => 10, :message_filter => "Bar").must_equal "SHA2\nSHA3"
+    it "has a sane pretty log" do
+      driver = StubGitDriver.new
+      driver.pretty_log(:time => 10, :message_filter => "Foo").must_equal "SHA1\nSHA2"
+      driver.pretty_log(:time => 10, :message_filter => "Bar").must_equal "SHA2\nSHA3"
     end
 
-    it "show one line names is sane" do
-      StubGitDriver.show_one_line_names(:commit_hash => "SHA2").must_equal "SHA1 commit message\nfile2\nfile3\nfile5"
+    it "has a sane show one line names" do
+      StubGitDriver.new.show_one_line_names(:commit_hash => "SHA2")
+          .must_equal "SHA1 commit message\nfile2\nfile3\nfile5"
+      StubGitDriver.new(:line_ending => "\r\n").show_one_line_names(:commit_hash => "SHA2")
+          .must_equal "SHA1 commit message\r\nfile2\r\nfile3\r\nfile5"
     end
   end
 
   class StubGitDriver
-    @pretty_log_enum = ["SHA1\nSHA2", "SHA2\nSHA3"].cycle
-    @commits = {
-      "SHA1" => "SHA1 commit message\nfile1\nfile2",
-      "SHA2" => "SHA1 commit message\nfile2\nfile3\nfile5",
-      "SHA3" => "SHA1 commit message\nfile4",
-    }
+    def initialize(options = {})
+      line_ending = options[:line_ending] || "\n"
+      @pretty_log_enum = ["SHA1#{line_ending}SHA2", "SHA2#{line_ending}SHA3"].cycle
+      @commits = {
+        "SHA1" => "SHA1 commit message#{line_ending}file1#{line_ending}file2",
+        "SHA2" => "SHA1 commit message#{line_ending}file2#{line_ending}file3#{line_ending}file5",
+        "SHA3" => "SHA1 commit message#{line_ending}file4",
+      }
+    end
 
-    class << self
-      def pretty_log(options)
-        @pretty_log_enum.next
-      end
+    def pretty_log(options)
+      @pretty_log_enum.next
+    end
 
-      def show_one_line_names(options)
-        @commits[options[:commit_hash]]
-      end
+    def show_one_line_names(options)
+      @commits[options[:commit_hash]]
     end
   end
 end

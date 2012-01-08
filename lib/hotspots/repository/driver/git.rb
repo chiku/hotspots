@@ -13,7 +13,6 @@ module Hotspots
             .tap {|raw| logger.log "<Input> #{raw}"}
           %x(#{command})
             .tap {|raw| logger.log raw}
-            .gsub("\r", "")
         end
 
         def show_one_line_names(options)
@@ -21,7 +20,6 @@ module Hotspots
             .tap {|raw| logger.log "<Input> #{raw}"}
           %x(#{command})
             .tap {|raw| logger.log "<Output> #{raw}"}
-            .gsub("\r", "")
         end
       end
     end

@@ -1,6 +1,7 @@
 current
 -------
 
+* Handle '\r' line endings
 * *Don't disregard file-name case*
 * Tests and coverage via rake
 
