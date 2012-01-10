@@ -1,7 +1,8 @@
-current
+v0.0.11
 -------
 
 * Default task is to run coverage report
+* Tolerate git versions that bomb when --grep option is empty
 
 v0.0.10
 -------
