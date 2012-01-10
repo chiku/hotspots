@@ -21,5 +21,6 @@ EOS
   s.test_files               = `git ls-files -- {test}/*`.split("\n")
   s.executables              = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths            = ["lib"]
-  s.development_dependencies = ["simplecov"]
+
+  s.add_development_dependency "simplecov"
 end
