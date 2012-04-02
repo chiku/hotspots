@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Hotspots by chiku</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Hotspots</h1>
+<p>Identify frequently modified files in a git repository</p>
+        <p class="view"><a href="https://github.com/chiku/hotspots">View the Project on GitHub <small>chiku/hotspots</small></a></p>
+        <ul>
+          <li><a href="https://github.com/chiku/hotspots/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/chiku/hotspots/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/chiku/hotspots">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Overview</h2>
+
+<p>This program helps in identifying files with maximum churn in a git repository. The more the number of changes made to a file, the more likelyhood of the file being a source of bug. If the same file is modified many times for bug fixes, it indicates that the file needs some refactoring or redesign love.</p>
+
+<h2>Dependencies</h2>
+
+<p>This script depends on ruby. Obviously it also depends on git. Ruby and git executables should be in your execution path for the script to run.</p>
+
+<h2>Installation</h2>
+
+<pre lang="script"><code>gem install hotspots
+</code></pre>
+
+<h2>Syntax</h2>
+
+<pre lang="script"><code>Usage: hotspots [options]
+
+Specific options:
+    -t, --time [TIME]                      Time in days to scan the repository for. Defaults to fifteen
+    -r, --repository [PATH]                Path to the repository to scan. Defaults to current path
+    -f, --file-filter [REGEX]              Regular expression to filtering file names. All files are allowed when not specified
+    -m, --message-filter [PIPE SEPARATED]  Values to filter files names against each commit message separated by pipe.
+                                           All files are allowed when not specified
+    -c, --cutoff [CUTOFF]                  The minimum occurance to consider for a file to appear in the list. Defaults to zero
+    -v, --verbose                          Show verbose output
+        --version                          Show version information
+    -h, --help                             Show this message
+</code></pre>
+
+<h2>Examples</h2>
+
+<p>This will give you all file names that contain '.c' and have been modified at least once in the past 15 days in the git repository pointed to by the current path.</p>
+
+<pre lang="script"><code>hotspots --file-filter "/.c"
+</code></pre>
+
+<p><em>Note that the dot "." is escaped as it is a regular expression matcher.</em></p>
+
+<p>This will give you all file names that contain '.rb' and have been modified at least thrice in the past 5 days in git repository present in 'rails' directory.</p>
+
+<pre lang="script"><code>hotspots --file-filter "/.rb" --path rails --cutoff 3 --time 5
+</code></pre>
+
+<h2>Running tests</h2>
+
+<p>Clone the repository and run the following command from the repository.</p>
+
+<pre lang="script"><code>gem install simplecov
+rake
+</code></pre>
+
+<h2>License</h2>
+
+<p>This tool is released under the MIT license. Please refer to LICENSE for more details.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/chiku">chiku</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
