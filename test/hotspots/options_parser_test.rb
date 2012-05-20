@@ -1,4 +1,5 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'options_parser')
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'exit_strategy')
 
 module Hotspots
   describe "OptionsParser" do
@@ -32,11 +33,11 @@ module Hotspots
       end
 
       it "exit code to nil" do
-        @parser.parse[:exit][:code].must_equal nil
+        @parser.parse[:exit_strategy].code.must_equal nil
       end
 
       it "exit message to empty string" do
-        @parser.parse[:exit][:message].must_equal ""
+        @parser.parse[:exit_strategy].message.must_equal ""
       end
     end
 
@@ -111,11 +112,11 @@ module Hotspots
     ["--help", "-h"].each do |option|
       describe option do
         it "sets exit code to zero" do
-          @parser.parse(option)[:exit][:code].must_equal 0
+          @parser.parse(option)[:exit_strategy].code.must_equal 0
         end
 
         it "sets an exit message" do
-          @parser.parse(option)[:exit][:message].wont_be_empty
+          @parser.parse(option)[:exit_strategy].message.wont_be_empty
         end
       end
     end
@@ -126,11 +127,11 @@ module Hotspots
       end
 
       it "sets an exit code" do
-        @options[:exit][:code].must_equal 1
+        @options[:exit_strategy].code.must_equal 1
       end
 
       it "sets an exit message" do
-        @options[:exit][:message].wont_be_empty
+        @options[:exit_strategy].message.wont_be_empty
       end
     end
 
@@ -140,11 +141,11 @@ module Hotspots
       end
 
       it "sets an exit code" do
-        @options[:exit][:code].must_equal 1
+        @options[:exit_strategy].code.must_equal 1
       end
 
       it "sets an exit message" do
-        @options[:exit][:message].wont_be_empty
+        @options[:exit_strategy].message.wont_be_empty
       end
     end
   end

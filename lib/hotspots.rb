@@ -7,16 +7,14 @@ require 'hotspots/repository'
 module Hotspots
   class Main
     attr_reader :logger, :options, :repository, :verbose,
-                :exit_code, :exit_message,
-                :driver, :parser, :store
+                :exit_strategy, :driver, :parser, :store
 
     def initialize
-      @options      = Hotspots::OptionsParser.new.parse(*ARGV)
-      @repository   = options[:repository]
-      @verbose      = options[:verbose]
-      @exit_code    = options[:exit][:code]
-      @exit_message = options[:exit][:message]
-      @logger       = Hotspots::Logger.new
+      @options       = Hotspots::OptionsParser.new.parse(*ARGV)
+      @repository    = options[:repository]
+      @verbose       = options[:verbose]
+      @exit_strategy = options[:exit_strategy]
+      @logger        = Hotspots::Logger.new
     end
 
     def execute!
@@ -26,7 +24,7 @@ module Hotspots
     end
 
     def validate!
-      validate_exit_code!
+      validate_early_exit!
       validate_git_repository!
     end
 
@@ -42,11 +40,8 @@ module Hotspots
 
     private
 
-    def validate_exit_code!
-      if exit_code
-        puts exit_message
-        exit exit_code
-      end
+    def validate_early_exit!
+      exit_strategy.perform
     end
 
     def validate_git_repository!
