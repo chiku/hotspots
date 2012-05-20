@@ -1,7 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'store')
 
 module Hotspots
-  describe "Store test" do
+  describe "Store" do
     it "counts occurances of a line present once" do
       lines = [
         "abc.txt",

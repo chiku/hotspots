@@ -1,7 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'lib', 'hotspots', 'repository', 'parser', 'git')
 
 module Hotspots::Repository
-  describe "Parser::Git test" do
+  describe "Parser::Git" do
     it "fetches a commit hash based on filter and time" do
       mock_git_driver = MiniTest::Mock.new
       options         = {:time => 10, :message_filters => ["Foo"]}
