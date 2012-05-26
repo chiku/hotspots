@@ -1,3 +1,8 @@
+WIP
+---
+
+* Make compatible with ruby 1.8.7
+
 v0.0.11
 -------
 
