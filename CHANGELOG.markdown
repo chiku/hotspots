@@ -1,5 +1,5 @@
-WIP
----
+v0.0.12
+-------
 
 * Make compatible with ruby 1.8.7
 

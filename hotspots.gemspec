@@ -23,4 +23,5 @@ EOS
   s.require_paths            = ["lib"]
 
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "minitest"
 end
