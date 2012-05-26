@@ -66,10 +66,10 @@ module Hotspots::Repository
     end
 
     it "has a sane show one line names" do
-      StubGitDriver.new.show_one_line_names(:commit_hash => "SHA2")
-          .must_equal "SHA1 commit message\nfile2\nfile3\nfile5"
-      StubGitDriver.new(:line_ending => "\r\n").show_one_line_names(:commit_hash => "SHA2")
-          .must_equal "SHA1 commit message\r\nfile2\r\nfile3\r\nfile5"
+      StubGitDriver.new.show_one_line_names(:commit_hash => "SHA2").
+          must_equal "SHA1 commit message\nfile2\nfile3\nfile5"
+      StubGitDriver.new(:line_ending => "\r\n").show_one_line_names(:commit_hash => "SHA2").
+          must_equal "SHA1 commit message\r\nfile2\r\nfile3\r\nfile5"
     end
   end
 

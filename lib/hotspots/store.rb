@@ -6,9 +6,9 @@ module Hotspots
       @cutoff = options[:cutoff]      || 0
       @filter = options[:file_filter] || ""
 
-      @lines.map   { |line| line.strip }
-            .select{ |line| not line.empty? and line =~ Regexp.new(@filter) }
-            .each  { |line| @store[line] += 1 }
+      @lines.map   { |line| line.strip }.
+             select{ |line| not line.empty? and line =~ Regexp.new(@filter) }.
+             each  { |line| @store[line] += 1 }
     end
 
     def on(line)
@@ -16,8 +16,8 @@ module Hotspots
     end
 
     def to_s
-      sorted_array.select     { |key, value| value >= @cutoff }
-                  .reduce("") { |acc, (key, value)| acc << "#{key},#{value}\n" }
+      sorted_array.select     { |key, value| value >= @cutoff }.
+                   reduce("") { |acc, (key, value)| acc << "#{key},#{value}\n" }
     end
 
     private
