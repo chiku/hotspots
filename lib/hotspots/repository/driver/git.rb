@@ -10,7 +10,7 @@ module Hotspots
 
         def pretty_log(options)
           grep_clause = options[:message_filter].empty? ? "" : " --grep \"#{options[:message_filter]}\""
-          command = %Q(git log --pretty="%H" --since #{options[:since_days]}.days.ago#{grep_clause}).
+          command = %Q(git log --pretty="%H" --since="#{options[:since_days]} days ago" #{grep_clause}).
             tap {|raw| logger.log "<Input> #{raw}"}
           %x(#{command}).
             tap {|raw| logger.log raw}
