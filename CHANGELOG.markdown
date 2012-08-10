@@ -1,7 +1,7 @@
 Current
 -------
 
-Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann)
+* Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann)
 
 
 v0.0.12
