@@ -1,3 +1,8 @@
+v0.1.0
+------
+
+* Version bump to force gem install to donwload latest version
+
 v0.0.13
 -------
 
