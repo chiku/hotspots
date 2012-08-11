@@ -1,4 +1,4 @@
-Current
+v0.0.13
 -------
 
 * Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann)
