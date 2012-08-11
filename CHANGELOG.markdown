@@ -2,7 +2,7 @@ Current
 -------
 
 * Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann)
-
+* Display a warning and run tests without reporting coverage if simplecov is not present
 
 v0.0.12
 -------
