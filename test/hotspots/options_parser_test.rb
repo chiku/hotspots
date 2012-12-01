@@ -1,5 +1,7 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'options_parser')
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'exit_strategy')
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'options_parser')
+
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_helper')
 
 module Hotspots
   describe "OptionsParser" do

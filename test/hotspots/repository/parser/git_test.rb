@@ -1,5 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'lib', 'hotspots', 'repository', 'parser', 'git')
 
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', 'minitest_helper')
+
 module Hotspots::Repository
   describe "Parser::Git" do
     it "fetches a commit hash based on filter and time" do

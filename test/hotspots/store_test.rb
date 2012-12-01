@@ -1,5 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib', 'hotspots', 'store')
 
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_helper')
+
 module Hotspots
   describe "Store" do
     it "counts occurances of a line present once" do
