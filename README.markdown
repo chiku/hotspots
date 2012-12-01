@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/chiku/hotspots.png?branch=master)](https://travis-ci.org/chiku/hotspots)
+
 Overview
 --------
 
