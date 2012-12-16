@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-$:.push File.expand_path("../lib", __FILE__)
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
 
 require "hotspots/version"
 
@@ -17,11 +18,12 @@ and over again, it may require re-design. Watch out for file changes that don't 
 test change.
 EOS
   s.rubyforge_project        = "hotspots"
-  s.files                    = `git ls-files`.split("\n")
-  s.test_files               = `git ls-files -- {test}/*`.split("\n")
-  s.executables              = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.files                    = Dir.glob("{lib,bin}/**/*") + %w(LICENSE README.markdown CHANGELOG.markdown)
+  s.test_files               = Dir.glob("{test}/**/*")
+  s.executables              = Dir.glob("{bin}/**/*").map{ |f| File.basename(f) }
   s.require_paths            = ["lib"]
 
   s.add_development_dependency "rake"
   s.add_development_dependency "minitest"
+  s.add_development_dependency "simplecov"
 end

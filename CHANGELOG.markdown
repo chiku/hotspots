@@ -1,7 +1,6 @@
 current
 -------
 
-* Don't generate coverage report
 * Sort for an array of array via spaceship operator returns different result on each run on ruby 1.8.7. Store has a string representation breaks intermittently on 1.8.7
 * Simplify Rakefile
 * Pull out a minitest_helper
