@@ -9,8 +9,8 @@ module Hotspots
     attr_reader :logger, :options, :repository, :verbose,
                 :exit_strategy, :driver, :parser, :store
 
-    def initialize
-      @options       = Hotspots::OptionsParser.new.parse(*ARGV)
+    def initialize(opts = nil)
+      @options       = opts || Hotspots::OptionsParser.new.parse(*ARGV)
       @repository    = options[:repository]
       @verbose       = options[:verbose]
       @exit_strategy = options[:exit_strategy]
