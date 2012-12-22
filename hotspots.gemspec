@@ -18,7 +18,7 @@ and over again, it may require re-design. Watch out for file changes that don't 
 test change.
 EOS
   s.rubyforge_project        = "hotspots"
-  s.files                    = Dir.glob("{lib,bin}/**/*") + %w(LICENSE README.markdown CHANGELOG.markdown)
+  s.files                    = Dir.glob("{lib,bin,test}/**/*") + %w(LICENSE README.md CHANGELOG.md TODO.md)
   s.test_files               = Dir.glob("{test}/**/*")
   s.executables              = Dir.glob("{bin}/**/*").map{ |f| File.basename(f) }
   s.require_paths            = ["lib"]
