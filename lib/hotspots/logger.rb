@@ -25,7 +25,7 @@ module Hotspots
     end
 
     def format(message)
-      "<#{Time.now}> #{message}\n"
+      "[#{Time.now}] #{message}\n"
     end
   end
 end
