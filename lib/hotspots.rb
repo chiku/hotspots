@@ -45,7 +45,8 @@ module Hotspots
     end
 
     def validate_git_repository!
-      if not File.directory?(repository) or not File.directory?(File.join(repository, '.git'))
+      output = `git status 2>&1`
+      unless $? == 0
         puts "'#{repository}' doesn't seem to be a git repository!"
         exit 10
       end
