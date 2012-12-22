@@ -1,10 +1,10 @@
 current
 -------
 
-* Sort for an array of array via spaceship operator returns different result on each run on ruby 1.8.7. Store has a string representation breaks intermittently on 1.8.7
+* Sort for an array of array via spaceship operator returns different result on each run on ruby 1.8.7. Store has a string representation breaks intermittently on 1.8.7. Tests fail intermittently on 1.8.7. So support for ruby 1.9.x only
 * Simplify Rakefile
 * Pull out a minitest_helper
-* Allow run as a library
+* Allow gem to be used as a library
 
 v0.1.0
 ------
@@ -14,7 +14,7 @@ v0.1.0
 v0.0.13
 -------
 
-* Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann)
+* Fix switch 'since' for git 1.7.2.5 (Thanks to Phil Hofmann https://github.com/branch14)
 * Display a warning and run tests without reporting coverage if simplecov is not present
 * Change format in verbose mode
 
