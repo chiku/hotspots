@@ -10,7 +10,7 @@ module Hotspots
                 :exit_strategy, :driver, :parser, :store
 
     def initialize(opts = nil)
-      @options       = opts || Hotspots::OptionsParser.new.parse(*ARGV)
+      @options       = opts.nil? ? Hotspots::OptionsParser.new.parse(*ARGV) : Hotspots::OptionsParser.default_options.merge(opts)
       @repository    = options[:repository]
       @verbose       = options[:verbose]
       @exit_strategy = options[:exit_strategy]

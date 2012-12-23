@@ -5,16 +5,22 @@ require 'hotspots/exit_strategy'
 
 module Hotspots
   class OptionsParser
+    class << self
+      def default_options
+        {
+          :time            => 15,
+          :repository      => ".",
+          :file_filter     => "",
+          :message_filters => [""],
+          :cutoff          => 0,
+          :verbose         => false,
+          :exit_strategy   => ExitStrategy::Null.new
+        }
+      end
+    end
+
     def initialize
-      @options = {
-        :time            => 15,
-        :repository      => ".",
-        :file_filter     => "",
-        :message_filters => [""],
-        :cutoff          => 0,
-        :verbose         => false,
-        :exit_strategy   => ExitStrategy::Null.new
-      }
+      @options = self.class.default_options
     end
 
     def parse(*args)
