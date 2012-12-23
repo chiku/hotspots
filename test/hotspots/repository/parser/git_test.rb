@@ -1,5 +1,3 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', '..', 'lib', 'hotspots', 'repository', 'parser', 'git')
-
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', 'minitest_helper')
 
 module Hotspots::Repository
