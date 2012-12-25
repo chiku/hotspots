@@ -2,6 +2,7 @@ current
 -------
 
 * Use default options when invoked as a library
+* Restructure interfaces for Logger, ExitStrategy & Hotspots. The older classes, modules and methods are still available
 
 v0.1.1
 ------

@@ -16,9 +16,13 @@ module Hotspots
       @sink = Null
     end
 
-    def set_console
+    def as_console
       @sink = Console
     end
+
+    # compatibility begin
+    alias_method :set_console, :as_console
+    # compatibility end
 
     def log(message)
       @sink << format(message)

@@ -17,34 +17,43 @@ module Hotspots
       @logger        = Hotspots::Logger.new
     end
 
-    def execute!
-      validate!
+    def output
+      validate
       set
       run
     end
 
-    def validate!
-      validate_early_exit!
-      validate_git_repository!
+    # TODO : this methods should be private
+    def validate
+      exit_if_options_are_for_help
+      exit_if_not_git_repository
     end
 
+    # TODO : this methods should be private
     def set
-      set_logger
+      set_logger_if_verbose
       set_path
       assign
     end
 
+    # TODO : this methods should be private
     def run
       puts store.to_s
     end
 
+    # TODO : these methods should be private
+    # compatibility begin
+    alias_method :execute!, :output
+    alias_method :validate!, :validate
+    # compatibility end
+
     private
 
-    def validate_early_exit!
+    def exit_if_options_are_for_help
       exit_strategy.perform
     end
 
-    def validate_git_repository!
+    def exit_if_not_git_repository
       output = `git status 2>&1`
       unless $? == 0
         puts "'#{repository}' doesn't seem to be a git repository!"
@@ -52,9 +61,9 @@ module Hotspots
       end
     end
 
-    def set_logger
+    def set_logger_if_verbose
       if verbose
-        logger.set_console
+        logger.as_console
       end
     end
 
