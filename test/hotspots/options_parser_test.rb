@@ -120,7 +120,7 @@ module Hotspots
       end
     end
 
-    describe "on a invalid option" do
+    describe "on an invalid option" do
       before do
         @options = @parser.parse("--invalid-option")
       end
@@ -134,7 +134,7 @@ module Hotspots
       end
     end
 
-    describe "on a invalid argument" do
+    describe "on an invalid argument" do
       before do
         @options = @parser.parse("--repo", "")
       end
