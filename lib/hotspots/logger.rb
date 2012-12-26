@@ -1,5 +1,5 @@
 module Hotspots
-  class Logger
+  class Logger #:nodoc: all
     class Console
       def self.<<(message)
         $stdout << message

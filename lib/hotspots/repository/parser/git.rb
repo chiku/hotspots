@@ -1,5 +1,5 @@
 module Hotspots
-  module Repository
+  module Repository #:nodoc: all
     module Parser
       class Git
         attr_reader :driver, :time, :message_filters

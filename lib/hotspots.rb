@@ -24,20 +24,20 @@ module Hotspots
     end
 
     # TODO : this method should be private
-    def validate
+    def validate #:nodoc:
       exit_if_options_are_for_help
       exit_if_not_git_repository
     end
 
     # TODO : this method should be private
-    def set
+    def set #:nodoc:
       set_logger_if_verbose
       set_path
       assign
     end
 
     # TODO : this method should be private
-    def run
+    def run #:nodoc:
       puts store.to_s
     end
 

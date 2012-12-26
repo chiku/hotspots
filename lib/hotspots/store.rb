@@ -1,5 +1,5 @@
 module Hotspots
-  class Store
+  class Store #:nodoc: all
     def initialize(lines, options = {})
       @lines  = lines
       @store  = Hash.new(0)

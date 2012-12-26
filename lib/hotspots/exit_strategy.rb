@@ -1,6 +1,6 @@
 # compatibility begin
 module Hotspots
-  module OptionBasedExit
+  module OptionBasedExit #:nodoc: all
     class Error; end
     class Safe; end
     class Noop; end
