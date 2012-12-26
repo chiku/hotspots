@@ -89,7 +89,7 @@ module Hotspots
 
     def handle_message_filter_on(opts)
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
-              "Pipe separated values to filter files names against each commit message separated by pipe.",
+              "Pipe separated values to filter files names against each commit message.",
               "All files are allowed when not specified") do |o|
         @options[:message_filters] = o.to_s.split("|")
       end
