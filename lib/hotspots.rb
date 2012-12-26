@@ -23,20 +23,20 @@ module Hotspots
       run
     end
 
-    # TODO : this methods should be private
+    # TODO : this method should be private
     def validate
       exit_if_options_are_for_help
       exit_if_not_git_repository
     end
 
-    # TODO : this methods should be private
+    # TODO : this method should be private
     def set
       set_logger_if_verbose
       set_path
       assign
     end
 
-    # TODO : this methods should be private
+    # TODO : this method should be private
     def run
       puts store.to_s
     end
@@ -73,8 +73,8 @@ module Hotspots
 
     def assign
       @driver = Hotspots::Repository::Driver::Git.new logger
-      @parser = Hotspots::Repository::Parser::Git.new driver, options.clone
-      @store  = Hotspots::Store.new parser.files, options.clone
+      @parser = Hotspots::Repository::Parser::Git.new driver, :time => options[:time], :message_filters => options[:message_filters]
+      @store  = Hotspots::Store.new parser.files, :cutoff => options[:cutoff], :file_filter => options[:file_filter]
     end
   end
 end
