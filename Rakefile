@@ -6,3 +6,8 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task :default => [:test]
+
+task :coverage do
+  ENV["coverage"] = "true"
+  Rake::Task["test"].invoke
+end
