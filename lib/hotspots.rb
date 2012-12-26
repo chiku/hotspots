@@ -6,15 +6,24 @@ require 'hotspots/repository'
 
 module Hotspots
   class Main
-    attr_reader :logger, :options, :repository, :verbose,
-                :exit_strategy, :driver, :parser, :store
+    attr_reader :logger, :repository, :verbose,
+                :exit_strategy, :driver, :parser, :store,
+                :time, :message_filters, :file_filter, :cutoff
 
+    # TODO : change this signature - this method should get resolved options as parameters
+    # initialize is not responsible for invoking option parsing
     def initialize(opts = nil)
-      @options       = opts.nil? ? Hotspots::OptionsParser.new.parse(*ARGV) : Hotspots::OptionsParser.default_options.merge(opts)
-      @repository    = options[:repository]
-      @verbose       = options[:verbose]
-      @exit_strategy = options[:exit_strategy]
-      @logger        = Hotspots::Logger.new
+      options          = opts.nil? ? Hotspots::OptionsParser.new.parse(*ARGV) : Hotspots::OptionsParser.default_options.merge(opts)
+
+      @logger          = Hotspots::Logger.new
+      @repository      = options[:repository]
+      @verbose         = options[:verbose]
+      @exit_strategy   = options[:exit_strategy]
+
+      @time            = options[:time]
+      @message_filters = options[:message_filters]
+      @file_filter     = options[:file_filter]
+      @cutoff          = options[:cutoff]
     end
 
     def output
@@ -72,9 +81,9 @@ module Hotspots
     end
 
     def assign
-      @driver = Hotspots::Repository::Driver::Git.new logger
-      @parser = Hotspots::Repository::Parser::Git.new driver, :time => options[:time], :message_filters => options[:message_filters]
-      @store  = Hotspots::Store.new parser.files, :cutoff => options[:cutoff], :file_filter => options[:file_filter]
+      @driver  = Hotspots::Repository::Driver::Git.new logger
+      @parser  = Hotspots::Repository::Parser::Git.new driver, :time => time, :message_filters => message_filters
+      @store   = Hotspots::Store.new parser.files, :cutoff => cutoff, :file_filter => file_filter
     end
   end
 end
