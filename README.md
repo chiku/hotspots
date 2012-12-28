@@ -32,6 +32,7 @@ Specific options:
                                            All files are allowed when not specified
     -c, --cutoff [CUTOFF]                  The minimum occurrence to consider for a file to appear in the list. Defaults to zero
     -v, --verbose                          Show verbose output
+    -C, --colour, --color                  Show verbose output in colours
         --version                          Show version information
     -h, --help                             Show this message
 ```

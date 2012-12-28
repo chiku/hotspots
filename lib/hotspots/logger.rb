@@ -20,7 +20,7 @@ module Hotspots
       @sink = Console
     end
 
-    def log(message)
+    def log(message, options = {})
       @sink << format(message)
     end
 

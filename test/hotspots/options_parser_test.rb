@@ -38,6 +38,10 @@ module Hotspots
       it "defaults exit message to empty string" do
         @parser.parse[:exit_strategy].message.must_equal ""
       end
+
+      it "defaults colour to false" do
+        @parser.parse[:colour].must_equal false
+      end
     end
 
     ["--repository", "--repo", "-r"].each do |option|
@@ -104,6 +108,14 @@ module Hotspots
       describe option do
         it "sets the console logger" do
           @parser.parse(option)[:verbose].must_equal true
+        end
+      end
+    end
+
+    ["--color", "--colour", "-C"].each do |option|
+      describe option do
+        it "sets colours" do
+          @parser.parse(option)[:colour].must_equal true
         end
       end
     end

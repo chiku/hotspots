@@ -14,7 +14,8 @@ module Hotspots
           :message_filters => [""],
           :cutoff          => 0,
           :verbose         => false,
-          :exit_strategy   => OptionBasedExit::Noop.new
+          :exit_strategy   => OptionBasedExit::Noop.new,
+          :colour          => false,
         }
       end
     end
@@ -46,6 +47,7 @@ module Hotspots
         handle_message_filter_on(opts)
         handle_cutoff_on(opts)
         handle_verbosity_on(opts)
+        handle_colours_on(opts)
         handle_help_on(opts)
       end
     end
@@ -106,6 +108,13 @@ module Hotspots
       opts.on("-v", "--verbose",
               "Show verbose output") do
         @options[:verbose] = true
+      end
+    end
+
+    def handle_colours_on(opts)
+      opts.on("-C", "--colour", "--color",
+              "Show verbose output in colours") do
+        @options[:colour] = true
       end
     end
 
