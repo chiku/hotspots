@@ -6,7 +6,7 @@ require 'hotspots/repository'
 
 module Hotspots
   class Main
-    attr_reader :logger, :repository, :verbose,
+    attr_reader :logger, :repository, :verbose, :colour,
                 :exit_strategy, :driver, :parser, :store,
                 :time, :message_filters, :file_filter, :cutoff
 
@@ -18,6 +18,7 @@ module Hotspots
       @logger          = Hotspots::Logger.new
       @repository      = options[:repository]
       @verbose         = options[:verbose]
+      @colour          = options[:colour]
       @exit_strategy   = options[:exit_strategy]
 
       @time            = options[:time]
@@ -40,7 +41,7 @@ module Hotspots
 
     # TODO : this method should be private
     def set #:nodoc:
-      set_logger_if_verbose
+      configure_logger
       set_path
       assign
     end
@@ -70,9 +71,13 @@ module Hotspots
       end
     end
 
-    def set_logger_if_verbose
+    def configure_logger
       if verbose
         logger.as_console
+      end
+
+      if colour
+        logger.colourize
       end
     end
 
