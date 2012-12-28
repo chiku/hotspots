@@ -1,3 +1,8 @@
+v0.3.0
+------
+
+* Optional colours for input and output from git. Use 'ansi' gem for colours
+
 v0.2.0
 ------
 
