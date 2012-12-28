@@ -20,10 +20,6 @@ module Hotspots
       @sink = Console
     end
 
-    # compatibility begin
-    alias_method :set_console, :as_console
-    # compatibility end
-
     def log(message)
       @sink << format(message)
     end
@@ -31,5 +27,9 @@ module Hotspots
     def format(message)
       "[#{Time.now}] #{message}\n"
     end
+
+    # compatibility begin
+    alias_method :set_console, :as_console
+    # compatibility end
   end
 end

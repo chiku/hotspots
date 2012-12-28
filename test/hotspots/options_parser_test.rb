@@ -6,36 +6,36 @@ module Hotspots
       @parser = OptionsParser.new
     end
 
-    describe "defaults" do
-      it "repository to current path" do
+    describe "#initialize" do
+      it "defaults repository to current path" do
         @parser.parse[:repository].must_equal "."
       end
 
-      it "time to 15" do
+      it "defaults time to 15" do
         @parser.parse[:time].must_equal 15
       end
 
-      it "file filter to empty string" do
+      it "defaults file filter to empty string" do
         @parser.parse[:file_filter].must_equal ""
       end
 
-      it "message filters to array with an empty string" do
+      it "defaults message filters to array with an empty string" do
         @parser.parse[:message_filters].must_equal [""]
       end
 
-      it "cutoff to 0" do
+      it "defaults cutoff to 0" do
         @parser.parse[:cutoff].must_equal 0
       end
 
-      it "verbose to nil" do
+      it "defaults verbose to nil" do
         @parser.parse[:verbose].must_equal false
       end
 
-      it "exit code to nil" do
+      it "defaults exit code to nil" do
         @parser.parse[:exit_strategy].code.must_equal nil
       end
 
-      it "exit message to empty string" do
+      it "defaults exit message to empty string" do
         @parser.parse[:exit_strategy].message.must_equal ""
       end
     end
