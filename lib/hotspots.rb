@@ -10,10 +10,8 @@ module Hotspots
                 :exit_strategy, :driver, :parser, :store,
                 :time, :message_filters, :file_filter, :cutoff
 
-    # TODO : change this signature - this method should get resolved options as parameters
-    # initialize is not responsible for invoking option parsing
-    def initialize(opts = nil)
-      options          = opts.nil? ? Hotspots::OptionsParser.new.parse(*ARGV) : Hotspots::OptionsParser.default_options.merge(opts)
+    def initialize(opts)
+      options          = Hotspots::OptionsParser.default_options.merge(opts)
 
       @logger          = Hotspots::Logger.new
       @repository      = options[:repository]
@@ -33,31 +31,22 @@ module Hotspots
       run
     end
 
-    # TODO : this method should be private
+    private
+
     def validate #:nodoc:
       exit_if_options_are_for_help
       exit_if_not_git_repository
     end
 
-    # TODO : this method should be private
     def set #:nodoc:
       configure_logger
       set_path
       assign
     end
 
-    # TODO : this method should be private
     def run #:nodoc:
       puts store.to_s
     end
-
-    # TODO : these methods should be private
-    # compatibility begin
-    alias_method :execute!, :output
-    alias_method :validate!, :validate
-    # compatibility end
-
-    private
 
     def exit_if_options_are_for_help
       exit_strategy.perform

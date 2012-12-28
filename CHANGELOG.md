@@ -1,3 +1,8 @@
+current
+-------
+
+* Drop older compatibility methods, modules and classes
+
 v0.3.0
 ------
 

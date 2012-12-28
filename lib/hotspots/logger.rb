@@ -48,16 +48,11 @@ module Hotspots
       sink << format(message, options)
     end
 
-    # Make this method private
+    private
+
     # Time stampimg should be part of log level
     def format(message, options = {})
       colour.as(options[:as] || "black", "[#{Time.now}] #{message}\n")
     end
-
-    # compatibility begin
-    alias_method :set_console, :as_console
-    Console = Sink::Console
-    Null = Sink::Null
-    # compatibility end
   end
 end

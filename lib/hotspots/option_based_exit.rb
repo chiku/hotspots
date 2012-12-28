@@ -41,7 +41,3 @@ module Hotspots
     end
   end
 end
-
-# compatibility begin
-require 'hotspots/exit_strategy'
-# compatibility end
