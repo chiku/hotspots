@@ -1,5 +1,5 @@
-current
--------
+v1.0.0
+------
 
 * Drop older compatibility methods, modules and classes
 
