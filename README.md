@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/chiku/hotspots.png?branch=master)](https://travis-ci.org/chiku/hotspots)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/chiku/hotspots)
 
 Overview
 --------
