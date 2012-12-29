@@ -1,4 +1,4 @@
-module Hotspots
+class Hotspots
   # Should understand log levels
   class Logger #:nodoc: all
     module Sink

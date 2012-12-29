@@ -3,7 +3,7 @@ require 'optparse'
 require 'hotspots/version'
 require 'hotspots/option_based_exit'
 
-module Hotspots
+class Hotspots
   class OptionsParser #:nodoc: all
     class << self
       def default_options

@@ -1,4 +1,4 @@
-module Hotspots
+class Hotspots
   class Store #:nodoc: all
     def initialize(lines, options = {})
       @lines  = lines

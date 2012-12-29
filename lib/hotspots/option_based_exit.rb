@@ -1,4 +1,4 @@
-module Hotspots
+class Hotspots
   module OptionBasedExit #:nodoc: all
     class Error
       attr_reader :code, :message

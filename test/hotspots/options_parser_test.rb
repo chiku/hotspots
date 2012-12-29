@@ -1,6 +1,6 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_helper')
 
-module Hotspots
+class Hotspots
   describe "OptionsParser" do
     before do
       @parser = OptionsParser.new

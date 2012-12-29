@@ -1,4 +1,4 @@
-module Hotspots
+class Hotspots
   module Repository #:nodoc: all
     module Driver
       class Git

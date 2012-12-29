@@ -1,4 +1,4 @@
-module Hotspots
+class Hotspots
   module Repository #:nodoc: all
     module Parser
       class Git
