@@ -3,6 +3,7 @@ require 'hotspots/logger'
 require 'hotspots/store'
 require 'hotspots/options_parser'
 require 'hotspots/repository'
+require 'hotspots/compatibility'
 
 class Hotspots
   attr_reader :logger, :repository, :verbose, :colour,
@@ -79,7 +80,3 @@ class Hotspots
     @store   = Hotspots::Store.new parser.files, :cutoff => cutoff, :file_filter => file_filter
   end
 end
-
-# compatibility begin - to be removed in next major release
-Hotspots::Main = Hotspots
-# compatibility end
