@@ -4,4 +4,4 @@ require 'hotspots'
 
 options = Hotspots::OptionsParser.new.parse(*ARGV)
 
-Hotspots::Main.new(options).output
+Hotspots.new(options).output
