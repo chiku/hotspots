@@ -1,5 +1,5 @@
 class Hotspots
-  # Should understand log levels
+  # TODO : Should understand log levels
   class Logger #:nodoc: all
     module Sink
       class Console
