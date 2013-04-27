@@ -60,7 +60,7 @@ class Hotspots
       opts.banner = "Tool to find most modified files over the past few days in a git repository."
 
       opts.separator "Version #{::Hotspots::VERSION}"
-      opts.separator "Copyright (C) 2011-2012 Chirantan Mitra"
+      opts.separator "Copyright (C) 2011-2013 Chirantan Mitra"
       opts.separator ""
       opts.separator "Usage: ruby hotspots [options]"
       opts.separator ""
