@@ -14,7 +14,7 @@ class Hotspots
           :message_filters => [""],
           :cutoff          => 0,
           :log_level       => :error,
-          :exit_strategy   => OptionBasedExit::Noop.new,
+          :exit_strategy   => Exit::Noop.new,
           :colour          => false,
         }
       end
@@ -29,7 +29,7 @@ class Hotspots
       begin
         parser.parse args
       rescue ::OptionParser::InvalidOption, ::OptionParser::InvalidArgument => ex
-        @options[:exit_strategy] = OptionBasedExit::Error.new(:code => 1, :message => (ex.to_s << "\nUse -h for help\n"))
+        @options[:exit_strategy] = Exit::Error.new(:code => 1, :message => (ex.to_s << "\nUse -h for help\n"))
       end
       @options
     end
@@ -130,7 +130,7 @@ class Hotspots
     def handle_help_on(opts)
       opts.on_tail("-h", "--help",
                    "Show this message") do
-        @options[:exit_strategy] = OptionBasedExit::Safe.new(:message => opts.to_s)
+        @options[:exit_strategy] = Exit::Safe.new(:message => opts.to_s)
       end
     end
   end
