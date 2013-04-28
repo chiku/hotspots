@@ -1,3 +1,8 @@
+current
+-------
+
+* Use ruby's built-in logger instead of a custom one
+
 v1.1.0
 ------
 
