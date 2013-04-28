@@ -19,4 +19,5 @@ end
 
 require_relative "../lib/hotspots"
 
+gem 'minitest'
 require 'minitest/autorun'
