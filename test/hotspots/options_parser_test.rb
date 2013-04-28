@@ -2,183 +2,177 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_help
 
 class Hotspots
   describe "OptionsParser" do
-    before do
-      @parser = OptionsParser.new
-    end
+    let(:parser) { OptionsParser.new }
 
     describe "#initialize" do
       it "defaults repository to current path" do
-        @parser.parse[:repository].must_equal "."
+        parser.parse[:repository].must_equal "."
       end
 
       it "defaults time to 15" do
-        @parser.parse[:time].must_equal 15
+        parser.parse[:time].must_equal 15
       end
 
       it "defaults file filter to empty string" do
-        @parser.parse[:file_filter].must_equal ""
+        parser.parse[:file_filter].must_equal ""
       end
 
       it "defaults message filters to array with an empty string" do
-        @parser.parse[:message_filters].must_equal [""]
+        parser.parse[:message_filters].must_equal [""]
       end
 
       it "defaults cutoff to 0" do
-        @parser.parse[:cutoff].must_equal 0
+        parser.parse[:cutoff].must_equal 0
       end
 
       it "defaults log-level to 'error'" do
-        @parser.parse[:log_level].must_equal :error
+        parser.parse[:log_level].must_equal :error
       end
 
       it "defaults exit code to nil" do
-        @parser.parse[:exit_strategy].code.must_equal nil
+        parser.parse[:exit_strategy].code.must_equal nil
       end
 
       it "defaults exit message to empty string" do
-        @parser.parse[:exit_strategy].message.must_equal ""
+        parser.parse[:exit_strategy].message.must_equal ""
       end
 
       it "defaults colour to false" do
-        @parser.parse[:colour].must_equal false
+        parser.parse[:colour].must_equal false
       end
     end
 
-    ["--repository", "--repo", "-r"].each do |option|
-      describe option do
-        it "sets the specified value repository" do
-          @parser.parse(option, "rails")[:repository].must_equal "rails"
-        end
-
-        it "sets empty repository when missing" do
-          @parser.parse(option)[:repository].must_equal ""
-        end
-      end
-    end
-
-    ["--time", "--ti", "-t"].each do |option|
-      describe option do
-        it "sets the specified time to consider" do
-          @parser.parse(option, "8")[:time].must_equal 8
-        end
-
-        it "sets zero time when missing" do
-          @parser.parse(option)[:time].must_equal 0
-        end
-      end
-    end
-
-    ["--cutoff", "--cut", "-c"].each do |option|
-      describe option do
-        it "sets the specified cutoff" do
-          @parser.parse(option, "5")[:cutoff].must_equal 5
-        end
-
-        it "sets zero cutoff when missing" do
-          @parser.parse(option)[:cutoff].must_equal 0
-        end
-      end
-    end
-
-    ["--file-filter", "--file", "-f"].each do |option|
-      describe option do
-        it "sets the specified file-filter" do
-          @parser.parse(option, "rb")[:file_filter].must_equal "rb"
-        end
-
-        it "sets empty file-filter when missing" do
-          @parser.parse(option)[:file_filter].must_equal ""
-        end
-      end
-    end
-
-    ["--message-filter", "--message", "-m"].each do |option|
-      describe option do
-        it "sets the specified message filters" do
-          @parser.parse(option, "cleanup|defect")[:message_filters].must_equal ["cleanup", "defect"]
-        end
-
-        it "sets empty message-filter when missing" do
-          @parser.parse(option)[:message_filters].must_equal []
-        end
-      end
-    end
-
-    ["--log"].each do |option|
-      describe option do
-        it "sets the console logger" do
-          @parser.parse(option, "info")[:log_level].must_equal :info
-        end
-
-        describe "when set to a wrong level" do
-          before do
-            @options = @parser.parse(option, "blah")
+    describe "#parse" do
+      ["--repository", "--repo", "-r"].each do |option|
+        describe option do
+          it "sets the specified value repository" do
+            parser.parse(option, "rails")[:repository].must_equal "rails"
           end
 
-          it "sets an exit code" do
-            @options[:exit_strategy].code.must_equal 1
+          it "sets empty repository when missing" do
+            parser.parse(option)[:repository].must_equal ""
+          end
+        end
+      end
+
+      ["--time", "--ti", "-t"].each do |option|
+        describe option do
+          it "sets the specified time to consider" do
+            parser.parse(option, "8")[:time].must_equal 8
+          end
+
+          it "sets zero time when missing" do
+            parser.parse(option)[:time].must_equal 0
+          end
+        end
+      end
+
+      ["--cutoff", "--cut", "-c"].each do |option|
+        describe option do
+          it "sets the specified cutoff" do
+            parser.parse(option, "5")[:cutoff].must_equal 5
+          end
+
+          it "sets zero cutoff when missing" do
+            parser.parse(option)[:cutoff].must_equal 0
+          end
+        end
+      end
+
+      ["--file-filter", "--file", "-f"].each do |option|
+        describe option do
+          it "sets the specified file-filter" do
+            parser.parse(option, "rb")[:file_filter].must_equal "rb"
+          end
+
+          it "sets empty file-filter when missing" do
+            parser.parse(option)[:file_filter].must_equal ""
+          end
+        end
+      end
+
+      ["--message-filter", "--message", "-m"].each do |option|
+        describe option do
+          it "sets the specified message filters" do
+            parser.parse(option, "cleanup|defect")[:message_filters].must_equal ["cleanup", "defect"]
+          end
+
+          it "sets empty message-filter when missing" do
+            parser.parse(option)[:message_filters].must_equal []
+          end
+        end
+      end
+
+      ["--log"].each do |option|
+        describe option do
+          it "sets the console logger" do
+            parser.parse(option, "info")[:log_level].must_equal :info
+          end
+
+          describe "when set to a wrong level" do
+            let(:options) { parser.parse(option, "blah") }
+
+            it "sets an exit code" do
+              options[:exit_strategy].code.must_equal 1
+            end
+
+            it "sets an exit message" do
+              options[:exit_strategy].message.wont_be_empty
+            end
+          end
+        end
+      end
+
+      ["--verbose", "-v"].each do |option|
+        describe option do
+          it "sets the log level to debug" do
+            parser.parse(option)[:log_level].must_equal :debug
+          end
+        end
+      end
+
+      ["--color", "--colour", "-C"].each do |option|
+        describe option do
+          it "sets colours" do
+            parser.parse(option)[:colour].must_equal true
+          end
+        end
+      end
+
+      ["--help", "-h"].each do |option|
+        describe option do
+          it "sets exit code to zero" do
+            parser.parse(option)[:exit_strategy].code.must_equal 0
           end
 
           it "sets an exit message" do
-            @options[:exit_strategy].message.wont_be_empty
+            parser.parse(option)[:exit_strategy].message.wont_be_empty
           end
         end
       end
-    end
 
-    ["--verbose", "-v"].each do |option|
-      describe option do
-        it "sets the log level to debug" do
-          @parser.parse(option)[:log_level].must_equal :debug
-        end
-      end
-    end
+      describe "when parsing an invalid option" do
+        let(:options) { parser.parse("--invalid-option") }
 
-    ["--color", "--colour", "-C"].each do |option|
-      describe option do
-        it "sets colours" do
-          @parser.parse(option)[:colour].must_equal true
-        end
-      end
-    end
-
-    ["--help", "-h"].each do |option|
-      describe option do
-        it "sets exit code to zero" do
-          @parser.parse(option)[:exit_strategy].code.must_equal 0
+        it "sets an exit code" do
+          options[:exit_strategy].code.must_equal 1
         end
 
         it "sets an exit message" do
-          @parser.parse(option)[:exit_strategy].message.wont_be_empty
+          options[:exit_strategy].message.wont_be_empty
         end
       end
-    end
 
-    describe "on an invalid option" do
-      before do
-        @options = @parser.parse("--invalid-option")
-      end
+      describe "when parsing an invalid argument" do
+        let(:options) { parser.parse("--repo", "") }
 
-      it "sets an exit code" do
-        @options[:exit_strategy].code.must_equal 1
-      end
+        it "sets an exit code" do
+          options[:exit_strategy].code.must_equal 1
+        end
 
-      it "sets an exit message" do
-        @options[:exit_strategy].message.wont_be_empty
-      end
-    end
-
-    describe "on an invalid argument" do
-      before do
-        @options = @parser.parse("--repo", "")
-      end
-
-      it "sets an exit code" do
-        @options[:exit_strategy].code.must_equal 1
-      end
-
-      it "sets an exit message" do
-        @options[:exit_strategy].message.wont_be_empty
+        it "sets an exit message" do
+          options[:exit_strategy].message.wont_be_empty
+        end
       end
     end
   end
