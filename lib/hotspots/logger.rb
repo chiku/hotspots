@@ -1,36 +1,19 @@
+require 'forwardable'
 require 'logger'
 
 class Hotspots
-  # TODO : Should understand log levels
   class Logger #:nodoc: all
-    module Sink
-      class Console
-        def initialize
-          @logger = ::Logger.new(STDOUT)
-          @logger.formatter = proc do |severity, datetime, progname, msg|
-            "#{datetime}: #{msg}\n"
-          end
-        end
+    class Console
+      extend Forwardable
 
-        def info(message)
-          @logger.info { message }
-        end
-
-        def level=(l)
-          @logger.level = l
+      def initialize
+        @logger = ::Logger.new(STDOUT)
+        @logger.formatter = proc do |severity, datetime, progname, msg|
+          "#{datetime}: #{msg}\n"
         end
       end
 
-      class Null
-        def initialize
-        end
-
-        def info(message)
-        end
-
-        def level=(l)
-        end
-      end
+      def_delegators :@logger, :level=, :debug, :info, :warn, :error, :fatal
     end
 
     module Colour
@@ -50,7 +33,7 @@ class Hotspots
     attr_reader :sink, :colour
 
     def initialize
-      @sink = Sink::Console.new
+      @sink   = Console.new
       @colour = Colour::Null
     end
 
@@ -62,12 +45,7 @@ class Hotspots
         :error => ::Logger::ERROR,
         :fatal => ::Logger::FATAL,
       }
-      @sink.level = levels[l.to_sym]
-    end
-
-    def as_console
-      @sink = Sink::Console.new
-      @sink.level = ::Logger::DEBUG
+      @sink.level = levels[l]
     end
 
     def colourize
@@ -79,10 +57,14 @@ class Hotspots
       sink.info(format(message, options))
     end
 
+    def fatal(message, options = {})
+      sink.fatal(format(message, options))
+    end
+
     private
 
     def format(message, options = {})
-      colour.as(options[:as], message)
+      colour.as(options[:colour], message)
     end
   end
 end

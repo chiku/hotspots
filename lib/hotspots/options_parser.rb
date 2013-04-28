@@ -109,7 +109,7 @@ class Hotspots
       allowed_levels = [:debug, :info, :warn, :error, :fatal]
       opts.on("--log [LOG LEVEL]", allowed_levels,
               "Log level (#{allowed_levels.join(", ")})") do |o|
-        @options[:log_level] = o
+        @options[:log_level] = o.to_sym
       end
     end
 

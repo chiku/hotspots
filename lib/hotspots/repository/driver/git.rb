@@ -20,8 +20,8 @@ class Hotspots
 
         def execute_with_log(command)
           command.run.tap do |output|
-            logger.info("[input] #{command}", :as => "green")
-            logger.info("[output] #{output}", :as => "red")
+            logger.info("[input] #{command}", :colour => "green")
+            logger.info("[output] #{output}", :colour => "red")
           end
         end
       end
