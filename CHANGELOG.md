@@ -1,3 +1,9 @@
+Current
+-------
+
+* Cleanup some of the internals. All compatibility layers exist in a separate file. Remove dependency on deprecated class.
+* Defer to ruby for interpreting line endings
+
 v1.0.0
 ------
 
