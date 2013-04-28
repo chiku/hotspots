@@ -20,4 +20,3 @@ end
 require_relative "../lib/hotspots"
 
 require 'minitest/autorun'
-require 'minitest/spec'
