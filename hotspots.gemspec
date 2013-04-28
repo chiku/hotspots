@@ -26,6 +26,6 @@ EOS
   s.add_dependency "ansi"
 
   s.add_development_dependency "rake"
-  s.add_development_dependency "minitest"
+  s.add_development_dependency "minitest", ">= 4.2.0"
   s.add_development_dependency "simplecov"
 end
