@@ -30,12 +30,13 @@ Specific options:
     -r, --repository [PATH]                Path to the repository to scan. Defaults to current path
     -f, --file-filter [REGEX]              Regular expression to filtering file names. All files are allowed when not specified
     -m, --message-filter [PIPE SEPARATED]  Pipe separated values to filter files names against each commit message.
-                                           All files are allowed when not specified
+                                           All commit messages are allowed when not specified
     -c, --cutoff [CUTOFF]                  The minimum occurrence to consider for a file to appear in the list. Defaults to zero
+        --log [LOG LEVEL]                  Log level (debug, info, warn, error, fatal)
     -v, --verbose                          Show verbose output
-    -C, --colour, --color                  Show verbose output in colours
-        --version                          Show version information
+    -C, --colour, --color                  Show output in colours. The log level should be info or debug for colours
     -h, --help                             Show this message
+        --version                          Show version information
 ```
 
 Examples

@@ -63,7 +63,7 @@ class Hotspots
       opts.separator "Version #{::Hotspots::VERSION}"
       opts.separator "Copyright (C) 2011-2013 Chirantan Mitra"
       opts.separator ""
-      opts.separator "Usage: ruby hotspots [options]"
+      opts.separator "Usage: hotspots [options]"
       opts.separator ""
       opts.separator "Specific options:"
     end
@@ -93,14 +93,14 @@ class Hotspots
     def handle_message_filter_on(opts)
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
               "Pipe separated values to filter files names against each commit message.",
-              "All files are allowed when not specified") do |o|
+              "All commit messages are allowed when not specified") do |o|
         @options[:message_filters] = o.to_s.split("|")
       end
     end
 
     def handle_cutoff_on(opts)
       opts.on("-c", "--cutoff [CUTOFF]", OptionParser::DecimalInteger,
-              "The minimum occurance to consider for a file to appear in the list. Defaults to zero") do |o|
+              "The minimum occurrence to consider for a file to appear in the list. Defaults to zero") do |o|
         @options[:cutoff] = o.to_i
       end
     end
