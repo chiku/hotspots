@@ -9,17 +9,20 @@ class Hotspots
         end
 
         def pretty_log(options)
-          command = log_with_tag("Input", :as => :green) { Command::Git::Log.new(:since_days => options[:since_days], :message_filter => options[:message_filter]).build }
-          log_with_tag("Output", :as => :red) { %x(#{command}) }
+          execute_with_log Command::Git::Log.new(:since_days => options[:since_days], :message_filter => options[:message_filter])
         end
 
         def show_one_line_names(options)
-          command = log_with_tag("Input", :as => :green) { Command::Git::Show.new(:commit_hash => options[:commit_hash]).build }
-          log_with_tag("Output", :as => :red) { %x(#{command}) }
+          execute_with_log Command::Git::Show.new(:commit_hash => options[:commit_hash])
         end
 
-        def log_with_tag(tag, options, &block)
-          yield.tap { |raw| logger.log("<#{tag}>\n#{raw}<#{tag}/>", :as => options[:as]) }
+        private
+
+        def execute_with_log(command)
+          command.run.tap do |output|
+            logger.info("[input] #{command}", :as => "green")
+            logger.info("[output] #{output}", :as => "red")
+          end
         end
       end
     end

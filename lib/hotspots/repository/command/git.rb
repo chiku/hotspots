@@ -10,8 +10,12 @@ class Hotspots
             @message_filter = options[:message_filter].to_s
           end
 
-          def build
+          def to_s
             "git log --pretty=\"%H\" #{since_clause}#{grep_clause}"
+          end
+
+          def run
+            %x(#{self})
           end
 
           def since_clause
@@ -30,8 +34,12 @@ class Hotspots
             @commit_hash = options[:commit_hash]
           end
 
-          def build
+          def to_s
             "git show --oneline --name-only #{commit_hash}"
+          end
+
+          def run
+            %x(#{self})
           end
         end
       end

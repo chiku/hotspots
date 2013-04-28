@@ -1,15 +1,27 @@
+require 'logger'
+
 class Hotspots
   # TODO : Should understand log levels
   class Logger #:nodoc: all
     module Sink
       class Console
-        def self.<<(message)
-          $stdout << message
+        def initialize
+          @logger = ::Logger.new(STDOUT)
+          @logger.formatter = proc do |severity, datetime, progname, msg|
+            "#{datetime}: #{msg}\n"
+          end
+        end
+
+        def <<(message)
+          @logger.info { message }
         end
       end
 
       class Null
-        def self.<<(message)
+        def initialize
+        end
+
+        def <<(message)
         end
       end
     end
@@ -31,12 +43,12 @@ class Hotspots
     attr_reader :sink, :colour
 
     def initialize
-      @sink = Sink::Null
+      @sink = Sink::Null.new
       @colour = Colour::Null
     end
 
     def as_console
-      @sink = Sink::Console
+      @sink = Sink::Console.new
     end
 
     def colourize
@@ -44,15 +56,14 @@ class Hotspots
       @colour = Colour::ANSI
     end
 
-    def log(message, options = {})
+    def info(message, options = {})
       sink << format(message, options)
     end
 
     private
 
-    # Time stampimg should be part of log level
     def format(message, options = {})
-      colour.as(options[:as] || "black", "[#{Time.now}] #{message}\n")
+      colour.as(options[:as] || "black", message)
     end
   end
 end
