@@ -13,7 +13,7 @@ class Hotspots
           :file_filter     => "",
           :message_filters => [""],
           :cutoff          => 0,
-          :verbose         => false,
+          :log_level       => :error,
           :exit_strategy   => OptionBasedExit::Noop.new,
           :colour          => false,
         }
@@ -46,6 +46,7 @@ class Hotspots
         handle_file_filter_on(opts)
         handle_message_filter_on(opts)
         handle_cutoff_on(opts)
+        handle_log_level_on(opts)
         handle_verbosity_on(opts)
         handle_colours_on(opts)
         handle_help_on(opts)
@@ -104,16 +105,24 @@ class Hotspots
       end
     end
 
+    def handle_log_level_on(opts)
+      allowed_levels = [:debug, :info, :warn, :error, :fatal]
+      opts.on("--log [LOG LEVEL]", allowed_levels,
+              "Log level (#{allowed_levels.join(", ")})") do |o|
+        @options[:log_level] = o
+      end
+    end
+
     def handle_verbosity_on(opts)
       opts.on("-v", "--verbose",
               "Show verbose output") do
-        @options[:verbose] = true
+        @options[:log_level] = :debug
       end
     end
 
     def handle_colours_on(opts)
       opts.on("-C", "--colour", "--color",
-              "Show verbose output in colours") do
+              "Show output in colours. The log level should be info or debug for colours") do
         @options[:colour] = true
       end
     end

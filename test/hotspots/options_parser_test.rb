@@ -27,8 +27,8 @@ class Hotspots
         @parser.parse[:cutoff].must_equal 0
       end
 
-      it "defaults verbose to nil" do
-        @parser.parse[:verbose].must_equal false
+      it "defaults log-level to 'error'" do
+        @parser.parse[:log_level].must_equal :error
       end
 
       it "defaults exit code to nil" do
@@ -104,10 +104,32 @@ class Hotspots
       end
     end
 
-    ["--verbose", "-v"].each do |option|
+    ["--log"].each do |option|
       describe option do
         it "sets the console logger" do
-          @parser.parse(option)[:verbose].must_equal true
+          @parser.parse(option, "info")[:log_level].must_equal :info
+        end
+
+        describe "when set to a wrong level" do
+          before do
+            @options = @parser.parse(option, "blah")
+          end
+
+          it "sets an exit code" do
+            @options[:exit_strategy].code.must_equal 1
+          end
+
+          it "sets an exit message" do
+            @options[:exit_strategy].message.wont_be_empty
+          end
+        end
+      end
+    end
+
+    ["--verbose", "-v"].each do |option|
+      describe option do
+        it "sets the log level to debug" do
+          @parser.parse(option)[:log_level].must_equal :debug
         end
       end
     end

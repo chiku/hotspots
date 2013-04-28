@@ -12,8 +12,12 @@ class Hotspots
           end
         end
 
-        def <<(message)
+        def info(message)
           @logger.info { message }
+        end
+
+        def level=(l)
+          @logger.level = l
         end
       end
 
@@ -21,7 +25,10 @@ class Hotspots
         def initialize
         end
 
-        def <<(message)
+        def info(message)
+        end
+
+        def level=(l)
         end
       end
     end
@@ -43,12 +50,24 @@ class Hotspots
     attr_reader :sink, :colour
 
     def initialize
-      @sink = Sink::Null.new
+      @sink = Sink::Console.new
       @colour = Colour::Null
+    end
+
+    def level=(l)
+      levels = {
+        :debug => ::Logger::DEBUG,
+        :info  => ::Logger::INFO,
+        :warn  => ::Logger::WARN,
+        :error => ::Logger::ERROR,
+        :fatal => ::Logger::FATAL,
+      }
+      @sink.level = levels[l.to_sym]
     end
 
     def as_console
       @sink = Sink::Console.new
+      @sink.level = ::Logger::DEBUG
     end
 
     def colourize
@@ -57,13 +76,13 @@ class Hotspots
     end
 
     def info(message, options = {})
-      sink << format(message, options)
+      sink.info(format(message, options))
     end
 
     private
 
     def format(message, options = {})
-      colour.as(options[:as] || "black", message)
+      colour.as(options[:as], message)
     end
   end
 end

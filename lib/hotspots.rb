@@ -6,7 +6,7 @@ require 'hotspots/repository'
 require 'hotspots/compatibility'
 
 class Hotspots
-  attr_reader :logger, :repository, :verbose, :colour,
+  attr_reader :logger, :repository, :log_level, :colour,
               :exit_strategy, :driver, :parser, :store,
               :time, :message_filters, :file_filter, :cutoff
 
@@ -15,7 +15,7 @@ class Hotspots
 
     @logger          = Hotspots::Logger.new
     @repository      = options[:repository]
-    @verbose         = options[:verbose]
+    @log_level       = options[:log_level]
     @colour          = options[:colour]
     @exit_strategy   = options[:exit_strategy]
 
@@ -61,9 +61,7 @@ class Hotspots
   end
 
   def configure_logger
-    if verbose
-      logger.as_console
-    end
+    logger.level = log_level
 
     if colour
       logger.colourize
