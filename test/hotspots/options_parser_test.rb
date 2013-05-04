@@ -71,18 +71,6 @@ class Hotspots
           it "sets the console logger" do
             parser.parse(option, "info").log_level.must_equal :info
           end
-
-          describe "when set to a wrong level" do
-            let(:options) { parser.parse(option, "blah") }
-
-            it "sets an exit code" do
-              options[:exit_strategy].code.must_equal 1
-            end
-
-            it "sets an exit message" do
-              options[:exit_strategy].message.wont_be_empty
-            end
-          end
         end
       end
 

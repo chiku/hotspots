@@ -92,7 +92,7 @@ class Hotspots
 
     def handle_log_level_on(opts)
       allowed_levels = [:debug, :info, :warn, :error, :fatal]
-      opts.on("--log [LOG LEVEL]", allowed_levels,
+      opts.on("--log [LOG LEVEL]",
               "Log level (#{allowed_levels.join(", ")})") do |o|
         @configuration.log_level = o.to_sym
       end
