@@ -9,11 +9,11 @@ class Hotspots
       ["--repository", "--repo", "-r"].each do |option|
         describe option do
           it "sets the specified value repository" do
-            parser.parse(option, "rails")[:repository].must_equal "rails"
+            parser.parse(option, "rails").repository.must_equal "rails"
           end
 
           it "sets empty repository when missing" do
-            parser.parse(option)[:repository].must_equal ""
+            parser.parse(option).repository.must_equal ""
           end
         end
       end
@@ -21,11 +21,11 @@ class Hotspots
       ["--time", "--ti", "-t"].each do |option|
         describe option do
           it "sets the specified time to consider" do
-            parser.parse(option, "8")[:time].must_equal 8
+            parser.parse(option, "8").time.must_equal 8
           end
 
           it "sets zero time when missing" do
-            parser.parse(option)[:time].must_equal 0
+            parser.parse(option).time.must_equal 0
           end
         end
       end
@@ -33,11 +33,11 @@ class Hotspots
       ["--cutoff", "--cut", "-c"].each do |option|
         describe option do
           it "sets the specified cutoff" do
-            parser.parse(option, "5")[:cutoff].must_equal 5
+            parser.parse(option, "5").cutoff.must_equal 5
           end
 
           it "sets zero cutoff when missing" do
-            parser.parse(option)[:cutoff].must_equal 0
+            parser.parse(option).cutoff.must_equal 0
           end
         end
       end
@@ -45,11 +45,11 @@ class Hotspots
       ["--file-filter", "--file", "-f"].each do |option|
         describe option do
           it "sets the specified file-filter" do
-            parser.parse(option, "rb")[:file_filter].must_equal "rb"
+            parser.parse(option, "rb").file_filter.must_equal "rb"
           end
 
           it "sets empty file-filter when missing" do
-            parser.parse(option)[:file_filter].must_equal ""
+            parser.parse(option).file_filter.must_equal ""
           end
         end
       end
@@ -57,11 +57,11 @@ class Hotspots
       ["--message-filter", "--message", "-m"].each do |option|
         describe option do
           it "sets the specified message filters" do
-            parser.parse(option, "cleanup|defect")[:message_filters].must_equal ["cleanup", "defect"]
+            parser.parse(option, "cleanup|defect").message_filters.must_equal ["cleanup", "defect"]
           end
 
           it "sets empty message-filter when missing" do
-            parser.parse(option)[:message_filters].must_equal []
+            parser.parse(option).message_filters.must_equal []
           end
         end
       end
@@ -85,7 +85,7 @@ class Hotspots
       ["--color", "--colour", "-C"].each do |option|
         describe option do
           it "sets colours" do
-            parser.parse(option)[:colour].must_equal true
+            parser.parse(option).colour.must_equal true
           end
         end
       end
@@ -93,11 +93,11 @@ class Hotspots
       ["--help", "-h"].each do |option|
         describe option do
           it "sets exit code to zero" do
-            parser.parse(option)[:exit_strategy].code.must_equal 0
+            parser.parse(option).exit_strategy.code.must_equal 0
           end
 
           it "sets an exit message" do
-            parser.parse(option)[:exit_strategy].message.wont_be_empty
+            parser.parse(option).exit_strategy.message.wont_be_empty
           end
         end
       end
@@ -106,11 +106,11 @@ class Hotspots
         let(:options) { parser.parse("--invalid-option") }
 
         it "sets an exit code" do
-          options[:exit_strategy].code.must_equal 1
+          options.exit_strategy.code.must_equal 1
         end
 
         it "sets an exit message" do
-          options[:exit_strategy].message.wont_be_empty
+          options.exit_strategy.message.wont_be_empty
         end
       end
 
@@ -118,11 +118,11 @@ class Hotspots
         let(:options) { parser.parse("--repo", "") }
 
         it "sets an exit code" do
-          options[:exit_strategy].code.must_equal 1
+          options.exit_strategy.code.must_equal 1
         end
 
         it "sets an exit message" do
-          options[:exit_strategy].message.wont_be_empty
+          options.exit_strategy.message.wont_be_empty
         end
       end
     end

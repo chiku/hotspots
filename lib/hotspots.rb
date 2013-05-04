@@ -4,7 +4,6 @@ require 'hotspots/colour'
 require 'hotspots/store'
 require 'hotspots/options_parser'
 require 'hotspots/repository'
-require 'hotspots/compatibility'
 
 class Hotspots
   class << self
