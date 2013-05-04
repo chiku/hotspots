@@ -1,7 +1,26 @@
 #!/usr/bin/env ruby
 
+
+require 'logger'
 require 'hotspots'
 
-options = Hotspots::OptionsParser.new.parse(*ARGV)
+LOG_LEVELS = {
+  :debug => ::Logger::DEBUG,
+  :info  => ::Logger::INFO,
+  :warn  => ::Logger::WARN,
+  :error => ::Logger::ERROR,
+  :fatal => ::Logger::FATAL,
+}
+LOG_LEVELS.default = ::Logger::ERROR
 
-Hotspots.new(options).output
+logger = ::Logger.new(STDOUT)
+logger.formatter = proc do |severity, datetime, progname, msg|
+  "#{datetime}: #{msg}\n"
+end
+
+configuration = Hotspots::Configuration.new
+overridden_configuration = Hotspots::OptionsParser.new(:configuration => configuration).parse(*ARGV)
+overridden_configuration.logger = logger
+overridden_configuration.logger.level = LOG_LEVELS[overridden_configuration.log_level]
+
+Hotspots.new(:configuration => configuration).output

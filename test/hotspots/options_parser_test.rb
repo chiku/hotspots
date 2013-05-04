@@ -2,45 +2,8 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_help
 
 class Hotspots
   describe "OptionsParser" do
-    let(:parser) { OptionsParser.new }
-
-    describe "#initialize" do
-      it "defaults repository to current path" do
-        parser.parse[:repository].must_equal "."
-      end
-
-      it "defaults time to 15" do
-        parser.parse[:time].must_equal 15
-      end
-
-      it "defaults file filter to empty string" do
-        parser.parse[:file_filter].must_equal ""
-      end
-
-      it "defaults message filters to array with an empty string" do
-        parser.parse[:message_filters].must_equal [""]
-      end
-
-      it "defaults cutoff to 0" do
-        parser.parse[:cutoff].must_equal 0
-      end
-
-      it "defaults log-level to 'error'" do
-        parser.parse[:log_level].must_equal :error
-      end
-
-      it "defaults exit code to nil" do
-        parser.parse[:exit_strategy].code.must_equal nil
-      end
-
-      it "defaults exit message to empty string" do
-        parser.parse[:exit_strategy].message.must_equal ""
-      end
-
-      it "defaults colour to false" do
-        parser.parse[:colour].must_equal false
-      end
-    end
+    let(:configuration) { Configuration.new }
+    let(:parser) { OptionsParser.new(:configuration => configuration) }
 
     describe "#parse" do
       ["--repository", "--repo", "-r"].each do |option|
@@ -106,7 +69,7 @@ class Hotspots
       ["--log"].each do |option|
         describe option do
           it "sets the console logger" do
-            parser.parse(option, "info")[:log_level].must_equal :info
+            parser.parse(option, "info").log_level.must_equal :info
           end
 
           describe "when set to a wrong level" do
@@ -126,7 +89,7 @@ class Hotspots
       ["--verbose", "-v"].each do |option|
         describe option do
           it "sets the log level to debug" do
-            parser.parse(option)[:log_level].must_equal :debug
+            parser.parse(option).log_level.must_equal :debug
           end
         end
       end

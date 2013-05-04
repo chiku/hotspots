@@ -5,33 +5,18 @@ require 'hotspots/exit'
 
 class Hotspots
   class OptionsParser #:nodoc: all
-    class << self
-      def default_options
-        {
-          :time            => 15,
-          :repository      => ".",
-          :file_filter     => "",
-          :message_filters => [""],
-          :cutoff          => 0,
-          :log_level       => :error,
-          :exit_strategy   => Exit::Noop.new,
-          :colour          => false,
-        }
-      end
-    end
-
-    def initialize
-      @options = self.class.default_options
+    def initialize(opts)
+      @configuration = opts[:configuration]
     end
 
     def parse(*args)
       parser = new_option_parser
       begin
-        parser.parse args
+        parser.parse(args)
       rescue ::OptionParser::InvalidOption, ::OptionParser::InvalidArgument => ex
-        @options[:exit_strategy] = Exit::Error.new(:code => 1, :message => (ex.to_s << "\nUse -h for help\n"))
+        @configuration.exit_strategy = Exit::Error.new(:code => 1, :message => (ex.to_s << "\nUse -h for help\n"))
       end
-      @options
+      @configuration
     end
 
     private
@@ -71,14 +56,14 @@ class Hotspots
     def handle_time_on(opts)
       opts.on("-t", "--time [TIME]", OptionParser::DecimalInteger,
               "Time in days to scan the repository for. Defaults to fifteen") do |o|
-        @options[:time] = o.to_i
+        @configuration.time = o.to_i
       end
     end
 
     def handle_path_on(opts)
       opts.on("-r", "--repository [PATH]", String,
               "Path to the repository to scan. Defaults to current path") do |o|
-        @options[:repository] = o.to_s
+        @configuration.repository = o.to_s
       end
     end
 
@@ -86,7 +71,7 @@ class Hotspots
       opts.on("-f", "--file-filter [REGEX]", String,
               "Regular expression to filtering file names.",
               "All files are allowed when not specified") do |o|
-        @options[:file_filter] = o.to_s
+        @configuration.file_filter = o.to_s
       end
     end
 
@@ -94,14 +79,14 @@ class Hotspots
       opts.on("-m", "--message-filter [PIPE SEPARATED]", String,
               "Pipe separated values to filter files names against each commit message.",
               "All commit messages are allowed when not specified") do |o|
-        @options[:message_filters] = o.to_s.split("|")
+        @configuration.message_filters = o.to_s.split("|")
       end
     end
 
     def handle_cutoff_on(opts)
       opts.on("-c", "--cutoff [CUTOFF]", OptionParser::DecimalInteger,
               "The minimum occurrence to consider for a file to appear in the list. Defaults to zero") do |o|
-        @options[:cutoff] = o.to_i
+        @configuration.cutoff = o.to_i
       end
     end
 
@@ -109,28 +94,28 @@ class Hotspots
       allowed_levels = [:debug, :info, :warn, :error, :fatal]
       opts.on("--log [LOG LEVEL]", allowed_levels,
               "Log level (#{allowed_levels.join(", ")})") do |o|
-        @options[:log_level] = o.to_sym
+        @configuration.log_level = o.to_sym
       end
     end
 
     def handle_verbosity_on(opts)
       opts.on("-v", "--verbose",
               "Show verbose output") do
-        @options[:log_level] = :debug
+        @configuration.log_level = :debug
       end
     end
 
     def handle_colours_on(opts)
       opts.on("-C", "--colour", "--color",
               "Show output in colours. The log level should be info or debug for colours") do
-        @options[:colour] = true
+        @configuration.colour = true
       end
     end
 
     def handle_help_on(opts)
       opts.on_tail("-h", "--help",
                    "Show this message") do
-        @options[:exit_strategy] = Exit::Safe.new(:message => opts.to_s)
+        @configuration.exit_strategy = Exit::Safe.new(:message => opts.to_s)
       end
     end
   end
