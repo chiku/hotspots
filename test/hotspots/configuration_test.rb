@@ -2,7 +2,14 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_help
 
 class Hotspots
   describe "Configuration" do
-    let(:configuration) { Configuration.new }
+    let(:log_levels) {
+      {
+        :debug  => :debug,
+        :info   => :info,
+        :error  => :error,
+      }
+    }
+    let(:configuration) { Configuration.new(:log_levels => log_levels) }
 
     describe "#initialize" do
       it "defaults repository to the current path" do

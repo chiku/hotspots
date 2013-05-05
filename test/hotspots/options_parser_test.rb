@@ -2,8 +2,15 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_help
 
 class Hotspots
   describe "OptionsParser" do
-    let(:configuration) { Configuration.new }
-    let(:parser) { OptionsParser.new(:configuration => configuration) }
+    let(:log_levels) {
+      {
+        :debug  => :debug_level,
+        :info   => :info_level,
+        :error  => :error_level,
+      }
+    }
+    let(:configuration) { Configuration.new(:log_levels => log_levels) }
+    let(:parser) { OptionsParser.new(:configuration => configuration, :log_levels => log_levels) }
 
     describe "#parse" do
       ["--repository", "--repo", "-r"].each do |option|
@@ -69,7 +76,7 @@ class Hotspots
       ["--log"].each do |option|
         describe option do
           it "sets the console logger" do
-            parser.parse(option, "info").log_level.must_equal :info
+            parser.parse(option, "info").log_level.must_equal log_levels[:info]
           end
         end
       end
@@ -77,7 +84,7 @@ class Hotspots
       ["--verbose", "-v"].each do |option|
         describe option do
           it "sets the log level to debug" do
-            parser.parse(option).log_level.must_equal :debug
+            parser.parse(option).log_level.must_equal log_levels[:debug]
           end
         end
       end

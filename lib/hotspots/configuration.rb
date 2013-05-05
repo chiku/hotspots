@@ -1,15 +1,36 @@
-# TODO : Don't depend on OpenStruct
-require 'ostruct'
-
 class Hotspots
   class Configuration #:nodoc: all
+    class AbsorbAll
+      def method_missing(*args, &block)
+        nil
+      end
+    end
+
     attr_accessor :repository, :time, :message_filters, :file_filter, :cutoff
     attr_accessor :colour, :logger
     attr_accessor :exit_strategy
 
     attr_reader   :log_level
 
-    def initialize
+    def initialize(opts)
+      @log_levels = opts[:log_levels]
+      set_deafults
+    end
+
+    def log_level=(l)
+      @log_level = @logger.level = @log_levels[l]
+      @log_level
+    end
+
+    def logger=(l)
+      @logger = l
+      @logger.level = @log_levels[@log_level]
+      @logger
+    end
+
+    private
+
+    def set_deafults
       @repository       = "."
       @time             = 15
       @message_filters  = [""]
@@ -17,15 +38,12 @@ class Hotspots
       @cutoff           = 0
 
       @colour           = false
-      @logger           = OpenStruct.new # TODO Make it an all absorbing object
+      @logger           = AbsorbAll.new
 
       @log_level        = :error
       @exit_strategy    = Exit::Noop.new
-    end
 
-    def log_level=(l)
-      # TODO : may not need to set log level outside of logger
-      @log_level = @logger.level = l
+      @logger.level     = @log_levels[:error]
     end
   end
 end
