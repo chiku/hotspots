@@ -3,14 +3,14 @@ require 'logger'
 class Hotspots
   class Logger
     class Default
-      LOG_LEVELS = {
+      LEVELS = {
         :debug => ::Logger::DEBUG,
         :info  => ::Logger::INFO,
         :warn  => ::Logger::WARN,
         :error => ::Logger::ERROR,
         :fatal => ::Logger::FATAL,
       }
-      LOG_LEVELS.default = ::Logger::ERROR
+      LEVELS.default = ::Logger::ERROR
 
       def self.create
         ::Logger.new(STDOUT).tap do |logger|
