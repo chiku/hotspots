@@ -4,24 +4,14 @@
 require 'logger'
 require 'hotspots'
 
-LOG_LEVELS = {
-  :debug => ::Logger::DEBUG,
-  :info  => ::Logger::INFO,
-  :warn  => ::Logger::WARN,
-  :error => ::Logger::ERROR,
-  :fatal => ::Logger::FATAL,
-}
-LOG_LEVELS.default = ::Logger::ERROR
+logger     = Hotspots::Logger.new
+LOG_LEVELS = Hotspots::Logger::Default::LEVELS
+raw_logger = logger.as
 
-logger = ::Logger.new(STDOUT)
-logger.formatter = proc do |severity, datetime, progname, msg|
-  "#{datetime}: #{msg}\n"
-end
+configuration = Hotspots::Configuration.new(:logger => logger, :log_levels => LOG_LEVELS)
+user_options = Hotspots::OptionsParser.new(:logger => logger, :configuration => configuration, :log_levels => LOG_LEVELS)
 
-configuration = Hotspots::Configuration.new(:log_levels => LOG_LEVELS)
-options = Hotspots::OptionsParser.new(:configuration => configuration, :log_levels => LOG_LEVELS)
-
-configuration.logger = logger
-overridden_configuration = options.parse(*ARGV)
+configuration.logger = raw_logger
+overridden_configuration = user_options.parse(*ARGV)
 
 Hotspots.new(:configuration => configuration).output

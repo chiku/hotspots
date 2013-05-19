@@ -4,7 +4,7 @@ class Hotspots
   class Logger
     attr_reader :level
 
-    def initialize(options)
+    def initialize(options = {})
       @levels_map   = options[:log_levels] || Default::LEVELS
       @logger       = options[:logger]     || Default.create
 

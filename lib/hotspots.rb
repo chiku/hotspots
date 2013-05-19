@@ -1,4 +1,5 @@
 require 'hotspots/version'
+require 'hotspots/logger'
 require 'hotspots/configuration'
 require 'hotspots/colour'
 require 'hotspots/store'
