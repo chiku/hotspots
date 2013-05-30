@@ -1,17 +1,11 @@
 #!/usr/bin/env ruby
 
 
-require 'logger'
 require 'hotspots'
 
-logger     = Hotspots::Logger.new
-LOG_LEVELS = Hotspots::Logger::Default::LEVELS
-raw_logger = logger.as
-
-configuration = Hotspots::Configuration.new(:logger => logger, :log_levels => LOG_LEVELS)
-user_options = Hotspots::OptionsParser.new(:logger => logger, :configuration => configuration, :log_levels => LOG_LEVELS)
-
-configuration.logger = raw_logger
+logger = Hotspots::Logger.new
+default_configuration = Hotspots::Configuration.new(:logger => logger)
+user_options = Hotspots::OptionsParser.new(:configuration => default_configuration)
 overridden_configuration = user_options.parse(*ARGV)
 
-Hotspots.new(:configuration => configuration).output
+Hotspots.new(:configuration => overridden_configuration).output

@@ -7,9 +7,9 @@ class Hotspots
     def initialize(options = {})
       @levels_map   = options[:log_levels] || Default::LEVELS
       @logger       = options[:logger]     || Default.create
+      @level        = :error
 
-      @level        = @levels_map[:error]
-      @logger.level = @level
+      sync_log_levels
     end
 
     def as
@@ -17,7 +17,15 @@ class Hotspots
     end
 
     def level=(l)
-      @logger.level = @level = l
+      @level = l
+      sync_log_levels
+      @level # test this
+    end
+
+    private
+
+    def sync_log_levels
+      @logger.level = @levels_map[@level]
     end
   end
 end

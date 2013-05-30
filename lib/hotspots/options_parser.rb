@@ -6,8 +6,7 @@ require 'hotspots/exit'
 class Hotspots
   class OptionsParser #:nodoc: all
     def initialize(opts)
-      @configuration = opts[:configuration]
-      @log_levels    = opts[:log_levels]
+      @configuration = opts[:configuration].dup # Test that older options are not mutatated
     end
 
     def parse(*args)
@@ -96,7 +95,6 @@ class Hotspots
       opts.on("--log [LOG LEVEL]",
               "Log level (#{allowed_levels.join(", ")})") do |o|
         @configuration.log_level = o.to_sym
-        @configuration.logger.level = @log_levels[o.to_sym]
       end
     end
 
@@ -104,7 +102,6 @@ class Hotspots
       opts.on("-v", "--verbose",
               "Show verbose output") do
         @configuration.log_level = :debug
-        @configuration.logger.level = @log_levels[:debug]
       end
     end
 

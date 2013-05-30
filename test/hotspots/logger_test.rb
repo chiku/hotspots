@@ -13,12 +13,12 @@ class Hotspots
         :error  => :error_level,
       }
     }
-    let(:logger) { Logger.new(:log_levels => log_levels, :logger => stub_logger) }
     let(:stub_logger) { StubLogger.new }
+    let(:logger) { Logger.new(:log_levels => log_levels, :logger => stub_logger) }
 
     describe "#initialize" do
       it "sets log level to error" do
-        logger.level.must_equal log_levels[:error]
+        logger.level.must_equal :error
       end
 
       it "sets log level of the actual logger to error" do
@@ -50,7 +50,7 @@ class Hotspots
 
       it "sets the log level on the actual logger" do
         logger.level = :debug
-        logger.as.level.must_equal :debug
+        logger.as.level.must_equal log_levels[:debug]
       end
     end
   end

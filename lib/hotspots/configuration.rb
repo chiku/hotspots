@@ -1,36 +1,10 @@
 class Hotspots
   class Configuration #:nodoc: all
-    class AbsorbAll
-      def method_missing(*args, &block)
-        nil
-      end
-    end
-
     attr_accessor :repository, :time, :message_filters, :file_filter, :cutoff
     attr_accessor :colour, :logger
     attr_accessor :exit_strategy
 
-    attr_reader   :log_level
-
-    def initialize(opts)
-      @log_levels = opts[:log_levels]
-      set_deafults
-    end
-
-    def log_level=(l)
-      @log_level = @logger.level = @log_levels[l]
-      @log_level
-    end
-
-    def logger=(l)
-      @logger = l
-      @logger.level = @log_levels[@log_level]
-      @logger
-    end
-
-    private
-
-    def set_deafults
+    def initialize(opts = {})
       @repository       = "."
       @time             = 15
       @message_filters  = [""]
@@ -38,12 +12,17 @@ class Hotspots
       @cutoff           = 0
 
       @colour           = false
-      @logger           = AbsorbAll.new
 
-      @log_level        = :error
+      @logger           = opts[:logger] || Hotspots::Logger.new
       @exit_strategy    = Exit::Noop.new
+    end
 
-      @logger.level     = @log_levels[:error]
+    def log_level=(l)
+      @logger.level = l
+    end
+
+    def log_level
+      @logger.level
     end
   end
 end
