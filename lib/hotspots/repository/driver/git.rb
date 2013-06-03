@@ -2,10 +2,8 @@ class Hotspots
   module Repository #:nodoc: all
     module Driver
       class Git
-        attr_reader :logger, :colour
-
         def initialize(options)
-          @logger = options[:logger]
+          @log    = options[:logger]
           @colour = options[:colour]
         end
 
@@ -21,8 +19,8 @@ class Hotspots
 
         def execute_with_log(command)
           command.run.tap do |output|
-            logger.as.info { colour.as("green", "[input] #{command}") }
-            logger.as.info { colour.as("red", "[output] #{output}") }
+            @log.as.info { @colour.as("green", "[input] #{command}") }
+            @log.as.info { @colour.as("red", "[output] #{output}") }
           end
         end
       end
