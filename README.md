@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/chiku/hotspots.png?branch=master)](https://travis-ci.org/chiku/hotspots)
+[![Build Status](https://drone.io/github.com/chiku/hotspots/status.png)](https://drone.io/github.com/chiku/hotspots/latest)
 [![Code Climate](https://codeclimate.com/github/chiku/hotspots.png)](https://codeclimate.com/github/chiku/hotspots)
 
 Overview
