@@ -1,5 +1,5 @@
-require 'hotspots/logger/default'
 require 'hotspots/logger/colour'
+require 'hotspots/logger/default'
 
 class Hotspots
   class Logger
@@ -7,10 +7,11 @@ class Hotspots
     attr_reader :colour
 
     def initialize(options = {})
-      @levels_map   = options[:log_levels] || Default::LEVELS
-      @logger       = options[:logger]     || Default.create
-      @colour       = options[:colour]     || Colour::Null
-      @level        = :error
+      @levels_map     = options[:log_levels]     || Default::LEVELS
+      @colour_schemes = options[:colour_schemes] || Colour::Schemes
+      @logger         = options[:logger]         || Default.create
+      @colour         = options[:colour]         || Colour::Null
+      @level          = :error
 
       sync_log_levels
     end
@@ -19,20 +20,20 @@ class Hotspots
       @logger
     end
 
-    def message(options)
-      @logger.send(options[:level]) { @colour.as(options[:colour], options[:message]) }
+    def message(message, options)
+      @logger.send(options[:level]) { @colour.as(options[:colour], message) }
     end
 
     def level=(l)
       @level = l
       sync_log_levels
-      @level # TODO test this
+      @level
     end
 
     def colour=(c)
-      @colour = c
+      @c = c
       sync_colours
-      @colour # TODO test this
+      @c
     end
 
     private
@@ -42,7 +43,7 @@ class Hotspots
     end
 
     def sync_colours
-      @colour = Colour.enable(@colour)
+      @colour = @colour_schemes[@c]
     end
   end
 end

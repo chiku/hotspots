@@ -15,13 +15,13 @@ class Hotspots
         end
       end
 
-      MAP = {
+      Schemes = {
         true  => ANSI,
         false => Null,
       }
 
       def self.enable(enabled)
-        MAP[enabled]
+        Schemes[enabled]
       end
     end
   end

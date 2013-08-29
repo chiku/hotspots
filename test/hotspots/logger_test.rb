@@ -13,8 +13,18 @@ class Hotspots
         :error  => :error_level,
       }
     }
+    let(:colour_schemes) {
+      {
+        true  => :colourful,
+        false => :dull,
+      }
+    }
     let(:stub_logger) { StubLogger.new }
-    let(:logger) { Logger.new(:log_levels => log_levels, :logger => stub_logger) }
+    let(:logger) {
+      Logger.new(:log_levels => log_levels,
+                 :colour_schemes => colour_schemes,
+                 :logger => stub_logger)
+    }
 
     describe "#initialize" do
       it "sets log level to error" do
@@ -51,6 +61,23 @@ class Hotspots
       it "sets the log level on the actual logger" do
         logger.level = :debug
         logger.as.level.must_equal log_levels[:debug]
+      end
+
+      it "return what was set" do
+        value = logger.level = :debug
+        value.must_equal :debug
+      end
+    end
+
+    describe "#colour=" do
+      it "sets the colour of the logger" do
+        logger.colour = true
+        logger.colour.must_equal colour_schemes[true]
+      end
+
+      it "return what was set" do
+        value = logger.colour = true
+        value.must_equal true
       end
     end
   end
