@@ -2,7 +2,7 @@ require 'hotspots/logger/colour'
 require 'hotspots/logger/default'
 
 class Hotspots
-  class Logger
+  class Logger #:nodoc: all
     attr_reader :level
     attr_reader :colour
 

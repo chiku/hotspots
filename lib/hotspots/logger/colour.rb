@@ -2,7 +2,7 @@ require 'ansi/code'
 
 class Hotspots
   class Logger
-    class Colour  #:nodoc: all
+    class Colour #:nodoc: all
       class ANSI
         def self.as(colour, message)
           ::ANSI::Code.send(colour, message)

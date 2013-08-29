@@ -2,7 +2,7 @@ require 'logger'
 
 class Hotspots
   class Logger
-    class Default
+    class Default #:nodoc: all
       LEVELS = {
         :debug => ::Logger::DEBUG,
         :info  => ::Logger::INFO,
