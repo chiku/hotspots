@@ -38,7 +38,7 @@ class Hotspots
       end
 
       it "defaults colour to false" do
-        configuration.colour.must_equal false
+        configuration.colour.must_equal Hotspots::Logger::Colour::Null
       end
     end
   end

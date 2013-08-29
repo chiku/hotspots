@@ -85,7 +85,7 @@ class Hotspots
       ["--color", "--colour", "-C"].each do |option|
         describe option do
           it "sets colours" do
-            parser.parse(option).colour.must_equal true
+            parser.parse(option).colour.must_equal Hotspots::Logger::Colour::ANSI
           end
         end
       end

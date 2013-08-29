@@ -1,7 +1,6 @@
 require 'hotspots/version'
 require 'hotspots/logger'
 require 'hotspots/configuration'
-require 'hotspots/colour'
 require 'hotspots/store'
 require 'hotspots/options_parser'
 require 'hotspots/repository'
@@ -18,7 +17,6 @@ class Hotspots
     @configuration   = opts[:configuration]
     @logger          = @configuration.logger
     @repository      = @configuration.repository
-    @colour          = Hotspots::Colour.enable(@configuration.colour)
     @exit_strategy   = @configuration.exit_strategy
     @time            = @configuration.time
     @message_filters = @configuration.message_filters
@@ -65,7 +63,7 @@ class Hotspots
   end
 
   def assign
-    @driver = Hotspots::Repository::Driver::Git.new(:logger => @logger, :colour => @colour)
+    @driver = Hotspots::Repository::Driver::Git.new(:logger => @logger, :colour => @logger.colour)
     @parser = Hotspots::Repository::Parser::Git.new(@driver, :time => @time, :message_filters => @message_filters)
     @store  = Hotspots::Store.new(@parser.files, :cutoff => @cutoff, :file_filter => @file_filter)
   end
