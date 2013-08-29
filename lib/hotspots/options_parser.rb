@@ -6,7 +6,7 @@ require 'hotspots/exit'
 class Hotspots
   class OptionsParser #:nodoc: all
     def initialize(opts)
-      @configuration = opts[:configuration].dup # Test that older options are not mutatated
+      @configuration = opts[:configuration].dup # TODO : Test that older options are not mutatated
     end
 
     def parse(*args)
