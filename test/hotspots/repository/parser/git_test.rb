@@ -52,7 +52,7 @@ module Hotspots::Repository
 
         git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2"])
 
-        assert mock_git_driver.verify
+        mock_git_driver.verify.must_equal true
       end
 
       it "fetches multiple commit hashes" do
@@ -74,7 +74,7 @@ module Hotspots::Repository
 
         git_parser.files.must_equal(["file1", "file2"])
 
-        assert mock_git_driver.verify
+        mock_git_driver.verify.must_equal true
       end
 
       it "finds all affected files for multiple commit messages" do
