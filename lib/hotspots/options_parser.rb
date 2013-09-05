@@ -14,7 +14,7 @@ class Hotspots
       begin
         parser.parse(args)
       rescue ::OptionParser::InvalidOption, ::OptionParser::InvalidArgument => ex
-        @configuration.exit_strategy = Exit::Error.new(:code => 1, :message => (ex.to_s << "\nUse -h for help\n"))
+        @configuration.exit_strategy = Exit::Error.new(:code => 1, :message => (ex.to_s + "\nUse -h for help\n"))
       end
       @configuration
     end
