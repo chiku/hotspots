@@ -8,7 +8,8 @@ if ENV["coverage"] == "true"
       add_filter "/test/"
     end
   rescue LoadError
-    puts "\nPlease install simplecov to generate coverage report!\n\n"
+    $stderr.puts "\n>>> Please install simplecov to generate a coverage report! <<<\n\n"
+    exit 1
   end
 end
 
