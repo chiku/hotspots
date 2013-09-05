@@ -2,7 +2,6 @@ current
 -------
 
 * Use ruby's built-in logger instead of a custom one
-* Don't couple colours with logging
 * Introduce the concept of Configuration. Configurations have defaults and are over-ridden by command-line options
 * Remove compatibility layers
 
