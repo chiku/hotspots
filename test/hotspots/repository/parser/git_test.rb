@@ -3,12 +3,11 @@ require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', 'm
 module Hotspots::Repository
   class StubGitDriver
     def initialize
-      line_ending = "\n"
-      @pretty_log = ["SHA1#{line_ending}SHA2", "SHA2#{line_ending}SHA3"]
+      @pretty_log = ["SHA1\nSHA2", "SHA2\nSHA3"]
       @commits = {
-        "SHA1" => "SHA1 commit message#{line_ending}file1#{line_ending}file2",
-        "SHA2" => "SHA1 commit message#{line_ending}file2#{line_ending}file3#{line_ending}file5",
-        "SHA3" => "SHA1 commit message#{line_ending}file4",
+        "SHA1" => "SHA1 commit message\nfile1\nfile2",
+        "SHA2" => "SHA1 commit message\nfile2\nfile3\nfile5",
+        "SHA3" => "SHA1 commit message\nfile4",
       }
       @pretty_log_cycle = 0
     end
@@ -80,14 +79,7 @@ module Hotspots::Repository
 
       it "finds all affected files for multiple commit messages" do
         options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
-        git_parser = Parser::Git.new StubGitDriver.new, options
-
-        git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
-      end
-
-      it "handles line ending" do
-        options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
-        git_parser = Parser::Git.new StubGitDriver.new, options
+        git_parser = Parser::Git.new GitDriverStub.new, options
 
         git_parser.files.must_equal(["file1", "file2", "file2", "file3", "file5", "file4"])
       end
