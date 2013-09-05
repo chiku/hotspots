@@ -1,7 +1,7 @@
 require File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', '..', 'minitest_helper')
 
 module Hotspots::Repository
-  class StubGitDriver
+  class GitDriverStub
     def initialize
       @pretty_log = ["SHA1\nSHA2", "SHA2\nSHA3"]
       @commits = {
@@ -23,8 +23,8 @@ module Hotspots::Repository
     end
   end
 
-  describe StubGitDriver do
-    subject { StubGitDriver.new }
+  describe GitDriverStub do
+    subject { GitDriverStub.new }
 
     describe "#pretty_log" do
       it "is sane" do
@@ -57,7 +57,7 @@ module Hotspots::Repository
 
       it "fetches multiple commit hashes" do
         options    = {:time => 10, :message_filters => ["Foo", "Bar"]}
-        git_parser = Parser::Git.new StubGitDriver.new, options
+        git_parser = Parser::Git.new GitDriverStub.new, options
 
         git_parser.filtered_commit_hashes.must_equal(["SHA1", "SHA2", "SHA3"])
       end
