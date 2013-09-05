@@ -63,7 +63,7 @@ class Hotspots
         logger.as.level.must_equal log_levels[:debug]
       end
 
-      it "return what was set" do
+      it "returns what was set" do
         value = logger.level = :debug
         value.must_equal :debug
       end
@@ -75,7 +75,7 @@ class Hotspots
         logger.colour.must_equal colour_schemes[true]
       end
 
-      it "return what was set" do
+      it "returns what was set" do
         value = logger.colour = true
         value.must_equal true
       end

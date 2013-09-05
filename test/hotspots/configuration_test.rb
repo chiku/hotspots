@@ -25,7 +25,7 @@ class Hotspots
         configuration.cutoff.must_equal 0
       end
 
-      it "set a logger " do
+      it "set a logger" do
         configuration.logger.wont_be :nil?
       end
 
