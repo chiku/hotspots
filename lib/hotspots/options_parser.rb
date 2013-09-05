@@ -34,6 +34,7 @@ class Hotspots
         handle_log_level_on(opts)
         handle_verbosity_on(opts)
         handle_colours_on(opts)
+        handle_version_on(opts)
         handle_help_on(opts)
       end
     end
@@ -109,6 +110,13 @@ class Hotspots
       opts.on("-C", "--colour", "--color",
               "Show output in colours. The log level should be info or debug for colours") do
         @configuration.colour = true
+      end
+    end
+
+    def handle_version_on(opts)
+      opts.on_tail("--version",
+                   "Show version") do
+        @configuration.exit_strategy = Exit::Safe.new(:message => "hotspots #{::Hotspots::VERSION}\n")
       end
     end
 

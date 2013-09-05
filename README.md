@@ -35,8 +35,8 @@ Specific options:
         --log [LOG LEVEL]                  Log level (debug, info, warn, error, fatal)
     -v, --verbose                          Show verbose output
     -C, --colour, --color                  Show output in colours. The log level should be info or debug for colours
+        --version                          Show version
     -h, --help                             Show this message
-        --version                          Show version information
 ```
 
 Examples

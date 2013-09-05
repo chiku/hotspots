@@ -90,6 +90,18 @@ class Hotspots
         end
       end
 
+      ["--version"].each do |option|
+        describe option do
+          it "sets exit code to zero" do
+            parser.parse(option).exit_strategy.code.must_equal 0
+          end
+
+          it "sets a version message" do
+            parser.parse(option).exit_strategy.message.must_be :include?, ::Hotspots::VERSION
+          end
+        end
+      end
+
       ["--help", "-h"].each do |option|
         describe option do
           it "sets exit code to zero" do
