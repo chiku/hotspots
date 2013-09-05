@@ -9,7 +9,7 @@ class Hotspots
       end
 
       def perform
-        puts @message
+        $stderr.puts @message
         exit @code
       end
     end
@@ -23,7 +23,7 @@ class Hotspots
       end
 
       def perform
-        puts @message
+        $stdout.puts @message
         exit @code
       end
     end
