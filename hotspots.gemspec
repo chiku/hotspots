@@ -22,6 +22,7 @@ EOS
   s.test_files               = Dir.glob("{test}/**/*")
   s.executables              = Dir.glob("{bin}/**/*").map{ |f| File.basename(f) }
   s.require_paths            = ["lib"]
+  s.license                  = "MIT"
 
   s.add_dependency "ansi"
 
