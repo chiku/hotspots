@@ -63,8 +63,8 @@ class Hotspots
   end
 
   def assign
-    @driver = Hotspots::Repository::Driver::Git.new(:logger => @logger)
-    @parser = Hotspots::Repository::Parser::Git.new(@driver, :time => @time, :message_filters => @message_filters)
+    @driver = Hotspots::Repository::GitDriver.new(:logger => @logger)
+    @parser = Hotspots::Repository::GitParser.new(@driver, :time => @time, :message_filters => @message_filters)
     @store  = Hotspots::Store.new(@parser.files, :cutoff => @cutoff, :file_filter => @file_filter)
   end
 end

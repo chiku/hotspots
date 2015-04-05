@@ -1,3 +1,3 @@
-require 'hotspots/repository/command'
-require 'hotspots/repository/driver'
-require 'hotspots/repository/parser'
+require 'hotspots/repository/git_command'
+require 'hotspots/repository/git_driver'
+require 'hotspots/repository/git_parser'
