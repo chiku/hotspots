@@ -36,10 +36,6 @@ class Hotspots
       it "defaults exit message to empty string" do
         configuration.exit_strategy.message.must_equal ""
       end
-
-      it "defaults colour to false" do
-        (configuration.colour == Hotspots::Logger::ColourAbsent).must_equal true
-      end
     end
   end
 end

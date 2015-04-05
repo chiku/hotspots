@@ -82,14 +82,6 @@ class Hotspots
         end
       end
 
-      ["--color", "--colour", "-C"].each do |option|
-        describe option do
-          it "sets colours" do
-            (parser.parse(option).colour == Hotspots::Logger::ColourPresent).must_equal true
-          end
-        end
-      end
-
       ["--version"].each do |option|
         describe option do
           it "sets exit code to zero" do

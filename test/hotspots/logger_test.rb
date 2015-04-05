@@ -68,17 +68,5 @@ class Hotspots
         value.must_equal :debug
       end
     end
-
-    describe "#colour=" do
-      it "sets the colour of the logger" do
-        logger.colour = true
-        logger.colour.must_equal colour_schemes[true]
-      end
-
-      it "returns what was set" do
-        value = logger.colour = true
-        value.must_equal true
-      end
-    end
   end
 end

@@ -11,7 +11,7 @@ class Hotspots
       @file_filter      = ""
       @cutoff           = 0
 
-      @logger           = opts[:logger] || Hotspots::Logger.new(:colour => false)
+      @logger           = opts[:logger] || Hotspots::Logger.new
       @exit_strategy    = Exit::Noop.new
     end
 
@@ -21,14 +21,6 @@ class Hotspots
 
     def log_level
       @logger.level
-    end
-
-    def colour=(c)
-      @logger.colour = c
-    end
-
-    def colour
-      @logger.colour
     end
   end
 end

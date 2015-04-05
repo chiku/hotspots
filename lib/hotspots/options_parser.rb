@@ -33,7 +33,6 @@ class Hotspots
         handle_cutoff_on(opts)
         handle_log_level_on(opts)
         handle_verbosity_on(opts)
-        handle_colours_on(opts)
         handle_version_on(opts)
         handle_help_on(opts)
       end
@@ -103,13 +102,6 @@ class Hotspots
       opts.on("-v", "--verbose",
               "Show verbose output") do
         @configuration.log_level = :debug
-      end
-    end
-
-    def handle_colours_on(opts)
-      opts.on("-C", "--colour", "--color",
-              "Show output in colours. The log level should be info or debug for colours") do
-        @configuration.colour = true
       end
     end
 
