@@ -2,8 +2,9 @@ current
 -------
 
 * Use ruby's built-in logger instead of a custom one
-* Introduce the concept of Configuration. Configurations have defaults and are over-ridden by command-line options
+* Introduce the concept of Configuration. Configurations have defaults and are overridden by command-line options
 * Remove compatibility layers
+* Always enable colour for verbose output
 
 v1.1.0
 ------
