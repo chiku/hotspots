@@ -26,8 +26,10 @@ class Hotspots
 
   def output
     validate
-    set
-    run
+    assign
+    set_path do
+      run
+    end
   end
 
   private
@@ -35,11 +37,6 @@ class Hotspots
   def validate
     exit_if_options_are_for_help
     exit_if_not_git_repository
-  end
-
-  def set
-    set_path
-    assign
   end
 
   def run
@@ -59,7 +56,7 @@ class Hotspots
   end
 
   def set_path
-    Dir.chdir(@repository)
+    yield Dir.chdir(@repository)
   end
 
   def assign
