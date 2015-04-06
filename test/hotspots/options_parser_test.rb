@@ -6,7 +6,7 @@ class Hotspots
     let(:parser) { OptionsParser.new(:configuration => configuration) }
 
     describe "#parse" do
-      ["--repository", "--repo", "-r"].each do |option|
+      ["--repository", "-r"].each do |option|
         describe option do
           it "sets the specified value repository" do
             parser.parse(option, "rails").repository.must_equal "rails"
@@ -18,8 +18,7 @@ class Hotspots
         end
       end
 
-      # TODO : Don't test ::OptionParser 
-      ["--time", "--ti", "-t"].each do |option|
+      ["--time", "-t"].each do |option|
         describe option do
           it "sets the specified time to consider" do
             parser.parse(option, "8").time.must_equal 8
@@ -31,7 +30,7 @@ class Hotspots
         end
       end
 
-      ["--cutoff", "--cut", "-c"].each do |option|
+      ["--cutoff", "-c"].each do |option|
         describe option do
           it "sets the specified cutoff" do
             parser.parse(option, "5").cutoff.must_equal 5
@@ -43,7 +42,7 @@ class Hotspots
         end
       end
 
-      ["--file-filter", "--file", "-f"].each do |option|
+      ["--file-filter", "-f"].each do |option|
         describe option do
           it "sets the specified file-filter" do
             parser.parse(option, "rb").file_filter.must_equal "rb"
@@ -55,7 +54,7 @@ class Hotspots
         end
       end
 
-      ["--message-filter", "--message", "-m"].each do |option|
+      ["--message-filter", "-m"].each do |option|
         describe option do
           it "sets the specified message filters" do
             parser.parse(option, "cleanup|defect").message_filters.must_equal ["cleanup", "defect"]
@@ -112,7 +111,7 @@ class Hotspots
       end
 
       describe "when parsing an invalid argument" do
-        let(:options) { parser.parse("--repo", "") }
+        let(:options) { parser.parse("--repository", "") }
 
         it "sets an exit code" do
           options.exit_strategy.code.must_equal 1
