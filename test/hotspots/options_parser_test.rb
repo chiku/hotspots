@@ -76,8 +76,8 @@ class Hotspots
 
       ["--verbose", "-v"].each do |option|
         describe option do
-          it "sets the log level to debug" do
-            parser.parse(option).log_level.must_equal :debug
+          it "sets the log level to info" do
+            parser.parse(option).log_level.must_equal :info
           end
         end
       end

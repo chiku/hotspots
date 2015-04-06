@@ -101,7 +101,7 @@ class Hotspots
     def handle_verbosity_on(opts)
       opts.on("-v", "--verbose",
               "Show verbose output") do
-        @configuration.log_level = :debug
+        @configuration.log_level = :info
       end
     end
 
