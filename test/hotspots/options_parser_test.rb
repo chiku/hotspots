@@ -18,6 +18,7 @@ class Hotspots
         end
       end
 
+      # TODO : Don't test ::OptionParser 
       ["--time", "--ti", "-t"].each do |option|
         describe option do
           it "sets the specified time to consider" do
@@ -62,14 +63,6 @@ class Hotspots
 
           it "sets empty message-filter when missing" do
             parser.parse(option).message_filters.must_equal []
-          end
-        end
-      end
-
-      ["--log"].each do |option|
-        describe option do
-          it "sets the console logger" do
-            parser.parse(option, "info").log_level.must_equal :info
           end
         end
       end

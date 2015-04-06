@@ -31,7 +31,6 @@ class Hotspots
         handle_file_filter_on(opts)
         handle_message_filter_on(opts)
         handle_cutoff_on(opts)
-        handle_log_level_on(opts)
         handle_verbosity_on(opts)
         handle_version_on(opts)
         handle_help_on(opts)
@@ -87,14 +86,6 @@ class Hotspots
       opts.on("-c", "--cutoff [CUTOFF]", OptionParser::DecimalInteger,
               "The minimum occurrence to consider for a file to appear in the list. Defaults to zero") do |o|
         @configuration.cutoff = o.to_i
-      end
-    end
-
-    def handle_log_level_on(opts)
-      allowed_levels = [:debug, :info, :warn, :error, :fatal]
-      opts.on("--log [LOG LEVEL]",
-              "Log level (#{allowed_levels.join(", ")})") do |o|
-        @configuration.log_level = o.to_sym
       end
     end
 

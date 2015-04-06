@@ -12,7 +12,7 @@ class Hotspots
     }
     Levels.default = ::Logger::ERROR
 
-    attr_reader :level
+    attr_reader :level # TODO : Test only method
 
     def initialize(options = {})
       @level      = :error
