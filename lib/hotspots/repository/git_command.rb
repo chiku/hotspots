@@ -12,7 +12,7 @@ class Hotspots
         end
 
         def run
-          %x(#{self})
+          %x(#{to_s})
         end
 
         def since_clause
@@ -36,7 +36,7 @@ class Hotspots
         end
 
         def run
-          %x(#{self})
+          %x(#{to_s})
         end
       end
     end
