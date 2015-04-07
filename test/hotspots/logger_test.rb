@@ -6,25 +6,13 @@ class Hotspots
   end
 
   describe "Logger" do
-    let(:log_levels) {
-      {
-        :debug  => :debug_level,
-        :info   => :info_level,
-        :error  => :error_level,
-      }
-    }
-    let(:colour_schemes) {
-      {
-        true  => :colourful,
-        false => :dull,
-      }
+    LogLevels = {
+      :debug  => :debug_level,
+      :info   => :info_level,
+      :error  => :error_level,
     }
     let(:stub_logger) { StubLogger.new }
-    let(:logger) {
-      Logger.new(:log_levels => log_levels,
-                 :colour_schemes => colour_schemes,
-                 :logger => stub_logger)
-    }
+    let(:logger) { Logger.new(:logger => stub_logger, :log_levels => LogLevels) }
 
     describe "#initialize" do
       it "sets log level to error" do
@@ -32,13 +20,13 @@ class Hotspots
       end
 
       it "sets log level of the actual logger to error" do
-        logger.as.level.must_equal log_levels[:error]
+        logger.as.level.must_equal LogLevels[:error]
       end
     end
 
     describe "#as" do
       describe "when not set" do
-        let(:logger) { Logger.new(:log_levels => log_levels) }
+        let(:logger) { Logger.new(:logger => stub_logger, :log_levels => LogLevels) }
 
         it "has a default value" do
           logger.as.wont_equal nil
@@ -60,7 +48,7 @@ class Hotspots
 
       it "sets the log level on the actual logger" do
         logger.level = :debug
-        logger.as.level.must_equal log_levels[:debug]
+        logger.as.level.must_equal LogLevels[:debug]
       end
 
       it "returns what was set" do
