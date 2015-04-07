@@ -10,4 +10,4 @@ default_configuration    = Hotspots::Configuration.new(:logger => logger)
 user_options             = Hotspots::OptionsParser.new(:configuration => default_configuration)
 overridden_configuration = user_options.parse(*ARGV)
 
-Hotspots.new(:configuration => overridden_configuration).output
+Hotspots.new(overridden_configuration).output
