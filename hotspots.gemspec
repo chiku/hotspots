@@ -29,4 +29,5 @@ EOS
   s.add_development_dependency "rake"
   s.add_development_dependency "minitest", ">= 4.2.0"
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "codeclimate-test-reporter"
 end

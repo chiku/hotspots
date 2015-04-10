@@ -5,7 +5,14 @@ require "ansi/code"
 
 if ENV["coverage"] == "true"
   begin
-    require 'simplecov'
+    require "codeclimate-test-reporter"
+    CodeClimate::TestReporter.start
+  rescue LoadError
+    $stderr.puts ::ANSI::Code.red("Please install codeclimate-test-reporter to generate a coverage report!")
+  end
+
+  begin
+    require "simplecov"
     SimpleCov.start do
       add_filter "/test/"
     end
