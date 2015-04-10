@@ -1,7 +1,4 @@
-require 'optparse'
-
-require 'hotspots/version'
-require 'hotspots/exit'
+require "optparse"
 
 class Hotspots
   class OptionsParser #:nodoc: all

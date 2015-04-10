@@ -1,4 +1,4 @@
-require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'minitest_helper')
+require File.join(File.expand_path(File.dirname(__FILE__)), "..", "minitest_helper")
 
 class Hotspots
   describe "OptionsParser" do
