@@ -1,5 +1,7 @@
-lib = File.expand_path('../../lib/', __FILE__)
+lib = File.expand_path("../../lib/", __FILE__)
 $:.unshift lib unless $:.include?(lib)
+
+require "ansi/code"
 
 if ENV["coverage"] == "true"
   begin
@@ -8,7 +10,7 @@ if ENV["coverage"] == "true"
       add_filter "/test/"
     end
   rescue LoadError
-    $stderr.puts "\n>>> Please install simplecov to generate a coverage report! <<<\n\n"
+    $stderr.puts ::ANSI::Code.red("Please install simplecov to generate a coverage report!")
     exit 1
   end
 end
@@ -20,5 +22,5 @@ end
 
 require_relative "../lib/hotspots"
 
-gem 'minitest'
-require 'minitest/autorun'
+gem "minitest"
+require "minitest/autorun"
