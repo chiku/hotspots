@@ -1,6 +1,5 @@
 require "hotspots/version"
 require "hotspots/exit"
-require "hotspots/logger"
 require "hotspots/configuration"
 require "hotspots/store"
 require "hotspots/options_parser"

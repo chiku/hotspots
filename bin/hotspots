@@ -5,8 +5,7 @@ $:.unshift lib unless $:.include?(lib)
 
 require "hotspots"
 
-logger                   = Hotspots::Logger.new
-default_configuration    = Hotspots::Configuration.new(:logger => logger)
+default_configuration    = Hotspots::Configuration.new
 user_options             = Hotspots::OptionsParser.new(:configuration => default_configuration)
 overridden_configuration = user_options.parse(*ARGV)
 

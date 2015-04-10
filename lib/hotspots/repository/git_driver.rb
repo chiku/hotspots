@@ -1,8 +1,10 @@
+require "ansi/code"
+
 class Hotspots
   module Repository #:nodoc: all
     class GitDriver
       def initialize(options)
-        @log = options[:logger]
+        @logger = options[:logger]
       end
 
       def pretty_log(options)
@@ -17,8 +19,8 @@ class Hotspots
 
       def execute(command)
         command.run.tap do |output|
-          @log.message("[input]\n#{command}", :level => :info, :colour => :green)
-          @log.message("[output]\n#{output}", :level => :info, :colour => :red)
+          @logger.info { ::ANSI::Code.green("[input]\n#{command}") }
+          @logger.info { ::ANSI::Code.red("[output]\n#{output}") }
         end
       end
     end
