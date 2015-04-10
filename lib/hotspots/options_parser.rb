@@ -3,7 +3,7 @@ require "optparse"
 class Hotspots
   class OptionsParser #:nodoc: all
     def initialize(opts)
-      @configuration = opts[:configuration].dup # TODO : Test that older options are not mutatated
+      @configuration = opts[:configuration].dup
     end
 
     def parse(*args)

@@ -98,6 +98,11 @@ class Hotspots
         end
       end
 
+      it "doesn't mutate options" do
+        parser.parse("--help")
+        configuration.exit_strategy.code.must_equal nil
+      end
+
       describe "when parsing an invalid option" do
         let(:options) { parser.parse("--invalid-option") }
 
