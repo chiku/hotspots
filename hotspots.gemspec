@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-lib = File.expand_path('../lib/', __FILE__)
+lib = File.expand_path("../lib/", __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 require "hotspots/version"
@@ -11,11 +11,11 @@ Gem::Specification.new do |s|
   s.authors                  = ["Chirantan Mitra"]
   s.email                    = ["chirantan.mitra@gmail.com"]
   s.homepage                 = "https://github.com/chiku/hotspots"
-  s.summary                  = "Find all files that changed over the past in a git repository based on conditions"
+  s.summary                  = "Find the files in a git repository that changed the most in recent past"
   s.description              = <<-EOS
-Find all files that changed over the past days for a git repository. If the same file is modified over
-and over again, it may require re-design. Watch out for file changes that don't have a corresponding
-test change.
+Find all files that changed over the past days for a git repository. If a file
+is modified multiple times, it may require a re-design. Watch out for
+implementation changes without a corresponding test change.
 EOS
   s.rubyforge_project        = "hotspots"
   s.files                    = Dir.glob("{lib,bin,test}/**/*") + %w(LICENSE README.md CHANGELOG.md TODO.md)
