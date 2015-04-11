@@ -31,7 +31,7 @@ class Hotspots
     class Noop
       attr_reader :code, :message
 
-      def initialize(options = {})
+      def initialize
         @message = ""
         @code    = nil
       end
