@@ -1,5 +1,3 @@
-require "logger"
-
 class Hotspots
   class Configuration #:nodoc: all
     attr_accessor :repository, :time, :message_filters, :file_filter, :cutoff
