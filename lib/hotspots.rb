@@ -23,6 +23,7 @@ class Hotspots
 
   def validate
     configuration.exit_strategy.perform
+    ensure_git_installed
     ensure_git_repository
   end
 
@@ -34,11 +35,12 @@ class Hotspots
     puts store.to_s
   end
 
+  def ensure_git_installed
+    Exit::Error.new(:message => "git not installed or not present in PATH!", :code => 10).perform unless Repository::Git.installed?
+  end
+
   def ensure_git_repository
-    `git status 2>&1`
-    unless $? == 0
-      Hotspots::Exit::Error.new(:message => "'#{@repository}' doesn't seem to be a git repository!", :code => 10).perform
-    end
+    Exit::Error.new(:message => "'#{@repository}' doesn't seem to be a git repository!", :code => 10).perform unless Repository::Git.inside_valid_repository?
   end
 
   def repository
@@ -46,14 +48,14 @@ class Hotspots
   end
 
   def store
-    Hotspots::Store.new(parser.files, :cutoff => configuration.cutoff, :file_filter => configuration.file_filter)
+    Store.new(parser.files, :cutoff => configuration.cutoff, :file_filter => configuration.file_filter)
   end
 
   def parser
-    Hotspots::Repository::GitParser.new(driver, :time => configuration.time, :message_filters => configuration.message_filters)
+    Repository::GitParser.new(driver, :time => configuration.time, :message_filters => configuration.message_filters)
   end
 
   def driver
-    Hotspots::Repository::GitDriver.new(:logger => configuration.logger)
+    Repository::GitDriver.new(:logger => configuration.logger)
   end
 end
