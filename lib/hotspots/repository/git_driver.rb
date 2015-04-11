@@ -18,10 +18,10 @@ class Hotspots
       private
 
       def execute(command)
-        command.run.tap do |output|
-          @logger.info { ::ANSI::Code.green("[input]\n#{command}") }
-          @logger.info { ::ANSI::Code.red("[output]\n#{output}") }
-        end
+        @logger.info { ::ANSI::Code.blue("[input]\n#{command}") }
+        output = %x(#{command.to_s})
+        @logger.info { ::ANSI::Code.green("[output]\n#{output}") }
+        output
       end
     end
   end

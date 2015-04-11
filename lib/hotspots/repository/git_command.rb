@@ -11,9 +11,7 @@ class Hotspots
           "git log --pretty=\"%H\" #{since_clause}#{grep_clause}"
         end
 
-        def run
-          %x(#{to_s})
-        end
+        private
 
         def since_clause
           "--since=\"#{@since_days} days ago\""
@@ -33,10 +31,6 @@ class Hotspots
 
         def to_s
           "git show --oneline --name-only #{commit_hash}"
-        end
-
-        def run
-          %x(#{to_s})
         end
       end
     end
