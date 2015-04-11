@@ -1,5 +1,5 @@
-require 'bundler/gem_tasks'
-require 'rake/testtask'
+require "bundler/gem_tasks"
+require "rake/testtask"
 
 Rake::TestTask.new(:test) do |t|
   t.pattern = "test/**/*_test.rb"
@@ -10,4 +10,5 @@ task :coverage do
   Rake::Task["test"].invoke
 end
 
-task :default => [:test]
+task :spec    => :test
+task :default => :test
