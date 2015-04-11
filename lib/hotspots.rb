@@ -20,7 +20,7 @@ class Hotspots
   def output
     validate
     assign
-    set_path do
+    inside_repository do
       run
     end
   end
@@ -28,6 +28,7 @@ class Hotspots
   private
 
   def validate
+    @exit_strategy.perform
     prepare_for_exit_if_git_status_invalid
     @exit_strategy.perform
   end
@@ -38,7 +39,7 @@ class Hotspots
     @store  = Hotspots::Store.new(@parser.files, :cutoff => @cutoff, :file_filter => @file_filter)
   end
 
-  def set_path
+  def inside_repository
     yield Dir.chdir(@repository)
   end
 
