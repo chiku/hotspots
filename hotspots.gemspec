@@ -24,10 +24,10 @@ EOS
   s.require_paths            = ["lib"]
   s.license                  = "MIT"
 
-  s.add_dependency "ansi"
+  s.add_dependency             "ansi"
 
   s.add_development_dependency "rake"
   s.add_development_dependency "minitest", ">= 4.2.0"
   s.add_development_dependency "simplecov"
-  s.add_development_dependency "codeclimate-test-reporter"
+  s.add_development_dependency "codeclimate-test-reporter", "~> 1.0.0"
 end

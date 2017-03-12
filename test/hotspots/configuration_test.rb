@@ -42,7 +42,7 @@ class Hotspots
       end
 
       it "defaults exit code to nil" do
-        configuration.exit_strategy.code.must_equal nil
+        configuration.exit_strategy.code.must_be :nil?
       end
 
       it "defaults exit message to empty string" do

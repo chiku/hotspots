@@ -23,7 +23,7 @@ class Hotspots
     private
 
     def sorted_array
-      @sorted_array ||= @store.sort do |(key1, value1), (key2, value2)|
+      @sorted_array ||= @store.sort do |(_, value1), (_, value2)|
         value2 <=> value1
       end
     end
