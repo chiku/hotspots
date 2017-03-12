@@ -1,0 +1,4 @@
+test:
+  post:
+    - bundle exec rake coverage
+    - bundle exec codeclimate-test-reporter
